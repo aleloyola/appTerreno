@@ -7,12 +7,14 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
+import { Login } from '../pages/login/login';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
 //new to consume restapi
 import { RestapiService } from '../providers/restapi-service';
+import { AuthService } from '../services/auth';
 import { HttpModule } from '@angular/http';
 
 @NgModule({
@@ -21,7 +23,8 @@ import { HttpModule } from '@angular/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    Login
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -34,13 +37,15 @@ import { HttpModule } from '@angular/http';
     AboutPage,
     ContactPage,
     HomePage,
-    TabsPage
+    TabsPage,
+    Login
   ],
   providers: [
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestapiService
+    RestapiService,
+    AuthService
   ]
 })
 export class AppModule {}
