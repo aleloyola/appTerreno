@@ -12,10 +12,10 @@ import { Login } from '../pages/login/login';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-//new to consume restapi
-import { RestapiService } from '../providers/restapi-service';
 import { AuthService } from '../services/auth';
 import { HttpModule } from '@angular/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { tripService } from "../services/trip";
 
 @NgModule({
   declarations: [
@@ -28,6 +28,7 @@ import { HttpModule } from '@angular/http';
   ],
   imports: [
     IonicModule.forRoot(MyApp),
+    IonicStorageModule.forRoot(),
     BrowserModule,
     HttpModule
   ],
@@ -44,8 +45,8 @@ import { HttpModule } from '@angular/http';
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    RestapiService,
-    AuthService
+    AuthService,
+    tripService
   ]
 })
 export class AppModule {}
