@@ -10,7 +10,7 @@ import { AuthService } from "../../services/auth";
   templateUrl: 'login.html',
 })
 export class Login {
-
+  errorMessage: String;
   constructor(private authService: AuthService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController) {
@@ -22,17 +22,8 @@ export class Login {
     });
     loading.present();
     this.authService.signin(form.value.email, form.value.password)
-      /*.then(data => {
-        loading.dismiss();
-      })
-      .catch(error => {
-        loading.dismiss();
-        const alert = this.alertCtrl.create({
-          title: 'Signin failed!',
-          message: error.message,
-          buttons: ['Ok']
-        });
-        alert.present();
-      });*/
+          .subscribe( data => console.log(data),
+                      error => this.errorMessage = <any>error);
+
   }
 }

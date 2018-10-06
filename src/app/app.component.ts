@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { TabsPage } from '../pages/tabs/tabs';
 import { Login } from '../pages/login/login';
-import { AuthService } from "../services/auth";
+//import { AuthService } from "../services/auth";
 
 @Component({
   templateUrl: 'app.html'
@@ -18,8 +18,7 @@ export class MyApp {
   @ViewChild('nav') nav: NavController;
 
   constructor(platform: Platform,
-              private menuCtrl: MenuController,
-              private authService: AuthService) {
+              private menuCtrl: MenuController) {
 
         this.isAuthenticated = false;
         this.rootPage = Login;
