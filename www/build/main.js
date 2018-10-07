@@ -332,31 +332,31 @@ var Login = (function () {
                 .subscribe(function (data) {
                 console.log(data);
                 //loading.dismiss();
-            }, function (error) {
-                if (loading)
+                _this.authService.getActiveUser(form.value.email)
+                    .subscribe(function (data) {
+                    console.log(data);
                     loading.dismiss();
-                var alert = _this.alertCtrl.create({
-                    title: 'User not defined!',
-                    message: error.message,
-                    buttons: ['Ok']
+                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
+                }, function (error) {
+                    if (loading)
+                        loading.dismiss();
+                    var alert = _this.alertCtrl.create({
+                        title: 'User is not a driver!',
+                        message: error.message,
+                        buttons: ['Ok']
+                    });
+                    alert.present();
                 });
-                alert.present();
             });
-            _this.authService.getActiveUser(form.value.email)
-                .subscribe(function (data) {
-                console.log(data);
+        }, function (error) {
+            if (loading)
                 loading.dismiss();
-                _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
-            }, function (error) {
-                if (loading)
-                    loading.dismiss();
-                var alert = _this.alertCtrl.create({
-                    title: 'User is not a driver!',
-                    message: error.message,
-                    buttons: ['Ok']
-                });
-                alert.present();
+            var alert = _this.alertCtrl.create({
+                title: 'User not defined!',
+                message: error.message,
+                buttons: ['Ok']
             });
+            alert.present();
         });
     };
     Login = __decorate([

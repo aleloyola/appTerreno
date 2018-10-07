@@ -30,6 +30,23 @@ export class Login {
           .subscribe( data => {
                                 console.log(data);
                                 //loading.dismiss();
+                                this.authService.getActiveUser(form.value.email)
+                                      .subscribe( data => {
+                                                              console.log(data);
+                                                              loading.dismiss();
+                                                              this.navCtrl.setRoot(TabsPage);
+                                                          },
+                                                error => {
+                                                  if(loading) loading.dismiss();
+                                                  const alert = this.alertCtrl.create({
+                                                      title: 'User is not a driver!',
+                                                      message: error.message,
+                                                      buttons: ['Ok']
+                                                            });
+                                                  alert.present();
+                                                  });
+
+                                              });
                               },
                       error => {
                         if(loading) loading.dismiss();
@@ -43,22 +60,6 @@ export class Login {
                     );
 
 
-    this.authService.getActiveUser(form.value.email)
-          .subscribe( data => {
-                                  console.log(data);
-                                  loading.dismiss();
-                                  this.navCtrl.setRoot(TabsPage);
-                              },
-                    error => {
-                      if(loading) loading.dismiss();
-                      const alert = this.alertCtrl.create({
-                          title: 'User is not a driver!',
-                          message: error.message,
-                          buttons: ['Ok']
-                                });
-                      alert.present();
-                      });
 
-                  });
   }
 }
