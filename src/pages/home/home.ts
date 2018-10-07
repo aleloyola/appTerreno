@@ -8,10 +8,21 @@ import { tripService } from "../../services/trip";
   templateUrl: 'home.html'
 })
 export class HomePage {
-trips: any;
+  trips: any;
   constructor(public navCtrl: NavController, public tripSrv: tripService) {
-    this.tripSrv.getTripsByTransport('3')
+    this.tripSrv.getTripsByTransport('1')
           .subscribe(data => this.trips = data);
+  }
+
+  doRefresh(refresher) {
+    console.log('Begin async operation', refresher);
+
+    setTimeout(() => {
+      console.log('Async operation has ended');
+      this.tripSrv.getTripsByTransport('3')
+            .subscribe(data => this.trips = data);
+      refresher.complete();
+    }, 2000);
   }
 
 }
