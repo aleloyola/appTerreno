@@ -5,7 +5,8 @@ import { LoadingController, AlertController, NavController } from "ionic-angular
 
 import { AuthService } from "../../services/auth";
 import { TabsPage } from "../tabs/tabs";
-
+import { Storage } from '@ionic/storage';
+import { UtilsService } from "../../services/utils";
 
 @Component({
   selector: 'page-login',
@@ -14,6 +15,8 @@ import { TabsPage } from "../tabs/tabs";
 export class Login {
   errorMessage: String;
   constructor(private authService: AuthService,
+              private storage: Storage,
+              private utilsService: UtilsService,
               private loadingCtrl: LoadingController,
               private alertCtrl: AlertController,
             private navCtrl: NavController) {
@@ -33,6 +36,13 @@ export class Login {
                                 this.authService.getActiveUser(form.value.email)
                                       .subscribe( data => {
                                                               console.log(data);
+                                                              console.log(data[0].url);
+                                                              //var transportId = this.utils.getIdFromURL(body[0].url);
+                                                              //let len = data[0].url.length;
+                                                              //var transportId = data[0].url.substring(len-2, len-1);
+                                                              console.log("TransportID: " + this.utilsService.getIdFromURL(data[0].url));
+                                                              this.storage.set('username', form.value.email);
+                                                              this.storage.set('transportId', this.utilsService.getIdFromURL(data[0].url));
                                                               loading.dismiss();
                                                               this.navCtrl.setRoot(TabsPage);
                                                           },

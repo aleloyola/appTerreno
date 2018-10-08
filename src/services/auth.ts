@@ -6,15 +6,16 @@ import 'rxjs/add/operator/catch';
 import { Observable } from "rxjs/Observable";
 import { Storage } from '@ionic/storage';
 
+
 @Injectable()
 export class AuthService {
   data: any;
   private isLogin: boolean = false;
-  constructor(private http:Http, private storage: Storage){}
+  constructor(private http:Http){}
 
   signin(username: string, password: string): Observable<any> {
     console.log("username:"+username+" - pass:"+password);
-    this.storage.set('username', username);
+
     //agregar archivo properties con las URLs
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
@@ -30,14 +31,8 @@ export class AuthService {
   }
 
   getActiveUser(username: string): Observable<any> {
-    let data: any;
-    this.storage.set('username', username);
-    console.log("el usuario activo es: "+username);
-    this.storage.get('username').then((username) => {
-      console.log('el username almacenado es:'+username);
-    });
     return this.http.get('http://dev.oceanictp.cl:8100/transportSearch/'+username+'/')
-                    .map(this.extractDataDriver)
+                    .map(this.extractDataTransport)
                     //.catch(this.handleErrorObservable);
   }
 
@@ -51,10 +46,9 @@ export class AuthService {
      return body || {};
   }
 
-  private extractDataDriver(res: Response) {
+  private extractDataTransport(res: Response) {
 	   let body = res.json();
      this.isLogin = true;
-     console.log("login!!!");
      return body || {};
   }
 
@@ -63,4 +57,5 @@ export class AuthService {
     return Observable.throw(error.message || error);*/
     return error;
   }
+
 }

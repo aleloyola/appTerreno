@@ -15,6 +15,7 @@ import { AuthService } from '../services/auth';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { tripService } from "../services/trip";
+import { UtilsService } from "../services/utils";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { tripService } from "../services/trip";
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
-    tripService
+    tripService,
+    UtilsService
   ]
 })
 export class AppModule {}
