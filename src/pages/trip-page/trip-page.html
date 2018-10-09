@@ -1,0 +1,48 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Trip Details</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <ion-grid>
+    <ion-row>
+      <ion-col text-center>
+        <h2>{{ trip.pickup_address }}</h2>
+        <div class="subtitle">{{ trip.destination_address }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <p>{{ trip.mobile_phone }}</p>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <p>{{ trip.passenger.first_name }}</p>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col>
+        <button
+          ion-button
+          outline
+          block
+          (click)="onEditRecipe()">In progress</button>
+      </ion-col>
+      <ion-col>
+        <button
+          ion-button
+          outline
+          block
+          (click)="onDeleteRecipe()"
+          color="danger">Cancel Trip</button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>

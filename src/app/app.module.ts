@@ -16,6 +16,7 @@ import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { tripService } from "../services/trip";
 import { UtilsService } from "../services/utils";
+import { TripPage } from "../pages/trip-page/trip-page";
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { UtilsService } from "../services/utils";
     ContactPage,
     HomePage,
     TabsPage,
-    Login
+    Login,
+    TripPage
   ],
   imports: [
     IonicModule.forRoot(MyApp),
@@ -37,7 +39,8 @@ import { UtilsService } from "../services/utils";
     ContactPage,
     HomePage,
     TabsPage,
-    Login
+    Login,
+    TripPage
   ],
   providers: [
     StatusBar,

@@ -15,7 +15,7 @@
    </ion-refresher-content>
   </ion-refresher>
 
-  <ion-card *ngFor="let trip of trips">
+  <ion-card *ngFor="let trip of trips; let i = index">
     <img src="../../assets/imgs/advance-card-map-madison.png">
     <ion-item>
       <!--<ion-icon name="football" item-start large></ion-icon>-->
@@ -26,11 +26,11 @@
     </ion-item>
     <ion-item>
       <span item-start>{{trip.start_trip_dt}}</span>
-      <button ion-button icon-start clear item-end>
+      <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">
         <ion-icon name="navigate"></ion-icon>
         Start
       </button>
     </ion-item>
   </ion-card>
-  
+
 </ion-content>

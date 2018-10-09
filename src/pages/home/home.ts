@@ -3,6 +3,7 @@ import { NavController } from 'ionic-angular';
 import { RestapiService } from '../../providers/restapi-service';
 import { tripService } from "../../services/trip";
 import { Storage } from '@ionic/storage';
+import { TripPage } from "../trip-page/trip-page";
 
 @Component({
   selector: 'page-home',
@@ -26,6 +27,10 @@ export class HomePage {
             .subscribe(data => this.trips = data);
       refresher.complete();
     }, 2000);
+  }
+
+  onLoadTrip(trip: any, index: number) {
+    this.navCtrl.push(TripPage, {trip: trip, index: index});
   }
 
 }

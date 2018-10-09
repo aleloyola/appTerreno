@@ -32,7 +32,7 @@ export class AuthService {
 
   getActiveUser(username: string): Observable<any> {
     return this.http.get('http://dev.oceanictp.cl:8100/transportSearch/'+username+'/')
-                    .map(this.extractDataTransport)
+                    .map(this.extractData)
                     //.catch(this.handleErrorObservable);
   }
 
@@ -46,11 +46,6 @@ export class AuthService {
      return body || {};
   }
 
-  private extractDataTransport(res: Response) {
-	   let body = res.json();
-     this.isLogin = true;
-     return body || {};
-  }
 
   private handleErrorObservable (error: Response | any) {
     /*console.error(error.message || error);

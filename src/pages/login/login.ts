@@ -36,7 +36,7 @@ export class Login {
                                 this.authService.getActiveUser(form.value.email)
                                       .subscribe( data => {
                                                               console.log(data);
-                                                              console.log(data[0].url);
+                                                              //console.log(data[0].url);
                                                               //var transportId = this.utils.getIdFromURL(body[0].url);
                                                               //let len = data[0].url.length;
                                                               //var transportId = data[0].url.substring(len-2, len-1);
