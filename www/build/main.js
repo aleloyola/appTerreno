@@ -46,8 +46,9 @@ var TabsPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(274);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(275);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data_endpoints__ = __webpack_require__(199);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,10 +63,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
         this.isLogin = false;
+        this.EP = __WEBPACK_IMPORTED_MODULE_4__data_endpoints__["a" /* default */];
     }
     AuthService.prototype.signin = function (username, password) {
         console.log("username:" + username + " - pass:" + password);
@@ -73,7 +76,7 @@ var AuthService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = { username: username, password: password };
-        return this.http.post('http://dev.oceanictp.cl:8100/api/token/', body, options)
+        return this.http.post(this.EP[0].apiToken, body, options)
             .map(this.extractData);
         //.catch(this.handleErrorObservable);
     };
@@ -82,7 +85,7 @@ var AuthService = (function () {
         return true;
     };
     AuthService.prototype.getActiveUser = function (username) {
-        return this.http.get('http://dev.oceanictp.cl:8100/transportSearch/' + username + '/')
+        return this.http.get(this.EP[0].transportSearch + username + '/')
             .map(this.extractData);
         //.catch(this.handleErrorObservable);
     };
@@ -101,10 +104,9 @@ var AuthService = (function () {
     };
     AuthService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
     ], AuthService);
     return AuthService;
-    var _a;
 }());
 
 //# sourceMappingURL=auth.js.map
@@ -189,7 +191,7 @@ var ContactPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(197);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(200);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -210,7 +212,7 @@ var HomePage = (function () {
         this.navCtrl = navCtrl;
         this.tripSrv = tripSrv;
         this.storage = storage;
-        this.tripSrv.getTripsByTransport('1')
+        this.tripSrv.getTripsByTransport('3')
             .subscribe(function (data) { return _this.trips = data; });
     }
     HomePage.prototype.doRefresh = function (refresher) {
@@ -251,6 +253,7 @@ var HomePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_endpoints__ = __webpack_require__(199);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -263,6 +266,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 /*
   Generated class for the RestapiService provider.
 
@@ -272,10 +276,26 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var tripService = (function () {
     function tripService(http) {
         this.http = http;
-        this.apiUrl = 'http://dev.oceanictp.cl:8100/trip/transport/';
+        this.EP = __WEBPACK_IMPORTED_MODULE_3__data_endpoints__["a" /* default */];
     }
     tripService.prototype.getTripsByTransport = function (transporNumber) {
-        return this.http.get(this.apiUrl + transporNumber)
+        return this.http.get(this.EP[0].tripByTransport + transporNumber)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.getTripFinishedByTransport = function (transporNumber) {
+        return this.http.get(this.EP[0].tripsFinished + transporNumber)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.setTripDriverInTransit = function (tripId) {
+        return this.http.get(this.EP[0].tripStatusToDriverInTransit + tripId)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.setTripInProgress = function (tripId) {
+        return this.http.get(this.EP[0].tripStatusInProgress + tripId)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.setTripFinished = function (tripId) {
+        return this.http.get(this.EP[0].tripStatusToFinished + tripId)
             .map(function (res) { return res.json(); });
     };
     tripService = __decorate([
@@ -290,6 +310,25 @@ var tripService = (function () {
 /***/ }),
 
 /***/ 199:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony default export */ __webpack_exports__["a"] = ([
+    {
+        apiToken: 'http://dev.oceanictp.cl:8100/api/token/',
+        transportSearch: 'http://dev.oceanictp.cl:8100/transportSearch/',
+        tripByTransport: 'http://dev.oceanictp.cl:8100/trip/transport/',
+        tripsFinished: 'http://dev.oceanictp.cl:8100/trip/TF/',
+        tripStatusToDriverInTransit: 'http://dev.oceanictp.cl:8100/trip/setStatusDIT/',
+        tripStatusInProgress: 'http://dev.oceanictp.cl:8100/trip/setStatusTIP/',
+        tripStatusToFinished: 'http://dev.oceanictp.cl:8100/trip/setStatusTF/'
+    }
+]);
+//# sourceMappingURL=endpoints.js.map
+
+/***/ }),
+
+/***/ 200:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -328,7 +367,7 @@ var TripPage = (function () {
     };
     TripPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'trip-page',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Trip Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n      <ion-col text-center>\n        <h2>{{ trip.pickup_address }}</h2>\n        <div class="subtitle">{{ trip.destination_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <p>{{ trip.mobile_phone }}</p>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-center>\n        <p>{{ trip.passenger.first_name }}</p>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col>\n        <button\n          ion-button\n          outline\n          block\n          (click)="onEditRecipe()">In progress</button>\n      </ion-col>\n      <ion-col>\n        <button\n          ion-button\n          outline\n          block\n          (click)="onDeleteRecipe()"\n          color="danger">Cancel Trip</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/
+            selector: 'trip-page',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Trip Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n        <ion-col text-left>\n          <div class="subtitle"><strong>Pasajero</strong></div>\n        </ion-col>\n        <ion-col text-left>\n          <div class="subtitle">{{trip._id}}{{trip.passenger.first_name}} {{trip.passenger.last_name}}</div>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col text-left>\n          <div class="subtitle"><strong>Convenio</strong></div>\n        </ion-col>\n        <ion-col text-left>\n          <div class="subtitle">{{ trip.customer.name }}</div>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Origen</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.pickup_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Destino</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.destination_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Teléfono 1</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.mobile_phone }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Teléfono 2</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.phone }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Fecha</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.scheduler_trip_dt }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Forma de Pago</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.payment_term }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <button\n          ion-button\n          outline\n          block\n          (click)="onEditRecipe()">In progress</button>\n      </ion-col>\n      <ion-col>\n        <button\n          ion-button\n          outline\n          block\n          (click)="onDeleteRecipe()"\n          color="danger">Cancel Trip</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
@@ -340,7 +379,7 @@ var TripPage = (function () {
 
 /***/ }),
 
-/***/ 200:
+/***/ 201:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -350,7 +389,7 @@ var TripPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(100);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -437,7 +476,7 @@ var Login = (function () {
 
 /***/ }),
 
-/***/ 201:
+/***/ 202:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -458,13 +497,13 @@ var UtilsService = (function () {
 
 /***/ }),
 
-/***/ 204:
+/***/ 205:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(228);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(206);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(229);
 
 
 Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
@@ -472,7 +511,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 
 /***/ }),
 
-/***/ 228:
+/***/ 229:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -480,19 +519,19 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(30);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(270);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(271);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_contact_contact__ = __webpack_require__(195);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_home_home__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_tabs_tabs__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(200);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(277);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(286);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_login_login__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(278);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(287);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__services_auth__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__angular_http__ = __webpack_require__(52);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__ionic_storage__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__services_trip__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_utils__ = __webpack_require__(201);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_trip_page_trip_page__ = __webpack_require__(199);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__services_utils__ = __webpack_require__(202);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__pages_trip_page_trip_page__ = __webpack_require__(200);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -562,7 +601,7 @@ var AppModule = (function () {
 
 /***/ }),
 
-/***/ 270:
+/***/ 271:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -570,7 +609,7 @@ var AppModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(30);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_tabs_tabs__ = __webpack_require__(100);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_login_login__ = __webpack_require__(200);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_login_login__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth__ = __webpack_require__(102);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -630,5 +669,5 @@ var MyApp = (function () {
 
 /***/ })
 
-},[204]);
+},[205]);
 //# sourceMappingURL=main.js.map

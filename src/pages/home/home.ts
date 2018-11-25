@@ -12,7 +12,7 @@ import { TripPage } from "../trip-page/trip-page";
 export class HomePage {
   trips: any;
   constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
-    this.tripSrv.getTripsByTransport('1')
+    this.tripSrv.getTripsByTransport('3')
           .subscribe(data => this.trips = data);
   }
 
