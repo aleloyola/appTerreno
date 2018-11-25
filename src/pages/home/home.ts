@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { RestapiService } from '../../providers/restapi-service';
 import { tripService } from "../../services/trip";
 import { Storage } from '@ionic/storage';
 import { TripPage } from "../trip-page/trip-page";

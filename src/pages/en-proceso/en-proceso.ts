@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from "ionic-angular";
 import { tripService } from "../../services/trip";
+import { Storage } from '@ionic/storage';
 import { TripPage } from "../trip-page/trip-page";
 
 @Component({
@@ -11,7 +12,7 @@ export class EnProcesoPage {
 
   trips: any;
   constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
-    this.tripSrv.getTripFinishedByTransport('3')
+    this.tripSrv.getTripInProgressByTransport('3')
           .subscribe(data => this.trips = data);
   }
 
@@ -22,7 +23,7 @@ export class EnProcesoPage {
     });
     setTimeout(() => {
       console.log('Async operation has ended');
-      this.tripSrv.getTripFinishedByTransport('3')
+      this.tripSrv.getTripInProgressByTransport('3')
             .subscribe(data => this.trips = data);
       refresher.complete();
     }, 2000);

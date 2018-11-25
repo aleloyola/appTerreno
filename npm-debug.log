@@ -18,7 +18,7 @@
 6 silly lifecycle ionic-hello-world@0.0.0~preionic:serve: no script for preionic:serve, continuing
 7 info lifecycle ionic-hello-world@0.0.0~ionic:serve: ionic-hello-world@0.0.0
 8 verbose lifecycle ionic-hello-world@0.0.0~ionic:serve: unsafe-perm in lifecycle true
-9 verbose lifecycle ionic-hello-world@0.0.0~ionic:serve: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexis/Developer/ionic/appTerreno/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
+9 verbose lifecycle ionic-hello-world@0.0.0~ionic:serve: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/alexis/Developer/ionic/appTerreno/node_modules/.bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Applications/VMware Fusion.app/Contents/Public:/opt/X11/bin:/Library/Frameworks/Mono.framework/Versions/Current/Commands
 10 verbose lifecycle ionic-hello-world@0.0.0~ionic:serve: CWD: /Users/alexis/Developer/ionic/appTerreno
 11 silly lifecycle ionic-hello-world@0.0.0~ionic:serve: Args: [ '-c',
 11 silly lifecycle   'ionic-app-scripts serve "--v2" "--address" "0.0.0.0" "--port" "8100" "--livereload-port" "35729"' ]

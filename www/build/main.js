@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 101:
+/***/ 103:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -40,129 +40,13 @@ var TabsPage = (function () {
 
 /***/ }),
 
-/***/ 102:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return tripService; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_endpoints__ = __webpack_require__(199);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-/*
-  Generated class for the RestapiService provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
-var tripService = (function () {
-    function tripService(http) {
-        this.http = http;
-        this.EP = __WEBPACK_IMPORTED_MODULE_3__data_endpoints__["a" /* default */];
-    }
-    tripService.prototype.getTripsByTransport = function (transporNumber) {
-        return this.http.get(this.EP[0].tripByTransport + transporNumber)
-            .map(function (res) { return res.json(); });
-    };
-    tripService.prototype.getTripFinishedByTransport = function (transporNumber) {
-        return this.http.get(this.EP[0].tripsFinished + transporNumber)
-            .map(function (res) { return res.json(); });
-    };
-    tripService.prototype.setTripDriverInTransit = function (tripId) {
-        return this.http.get(this.EP[0].tripStatusToDriverInTransit + tripId)
-            .map(function (res) { return res.json(); });
-    };
-    tripService.prototype.setTripInProgress = function (tripId) {
-        return this.http.get(this.EP[0].tripStatusInProgress + tripId)
-            .map(function (res) { return res.json(); });
-    };
-    tripService.prototype.setTripFinished = function (tripId) {
-        return this.http.get(this.EP[0].tripStatusToFinished + tripId)
-            .map(function (res) { return res.json(); });
-    };
-    tripService = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_http__["b" /* Http */]])
-    ], tripService);
-    return tripService;
-}());
-
-//# sourceMappingURL=trip.js.map
-
-/***/ }),
-
-/***/ 103:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TripPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-var TripPage = (function () {
-    function TripPage(navCtrl, navParams) {
-        this.navCtrl = navCtrl;
-        this.navParams = navParams;
-    }
-    TripPage.prototype.ngOnInit = function () {
-        this.trip = this.navParams.get('trip');
-        this.index = this.navParams.get('index');
-    };
-    TripPage.prototype.onEditRecipe = function () {
-        //this.navCtrl.push(EditRecipePage, {mode: 'Edit', recipe: this.recipe, index: this.index});
-    };
-    TripPage.prototype.onAddIngredients = function () {
-        //this.slService.addItems(this.recipe.ingredients);
-    };
-    TripPage.prototype.onDeleteRecipe = function () {
-        //this.recipesService.removeRecipe(this.index);
-        this.navCtrl.popToRoot();
-    };
-    TripPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'trip-page',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Trip Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n        <ion-col text-left>\n          <div class="subtitle"><strong>Pasajero</strong></div>\n        </ion-col>\n        <ion-col text-left>\n          <div class="subtitle">{{trip._id}}{{trip.passenger.first_name}} {{trip.passenger.last_name}}</div>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col text-left>\n          <div class="subtitle"><strong>Convenio</strong></div>\n        </ion-col>\n        <ion-col text-left>\n          <div class="subtitle">{{ trip.customer.name }}</div>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Origen</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.pickup_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Destino</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.destination_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Teléfono 1</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.mobile_phone }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Teléfono 2</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.phone }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Fecha</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.scheduler_trip_dt }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Forma de Pago</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.payment_term }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col>\n        <button\n          ion-button\n          outline\n          block\n          (click)="onEditRecipe()">In progress</button>\n      </ion-col>\n      <ion-col>\n        <button\n          ion-button\n          outline\n          block\n          (click)="onDeleteRecipe()"\n          color="danger">Cancel Trip</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
-            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
-    ], TripPage);
-    return TripPage;
-}());
-
-//# sourceMappingURL=trip-page.js.map
-
-/***/ }),
-
 /***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(54);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(198);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(276);
@@ -273,9 +157,9 @@ webpackEmptyAsyncContext.id = 157;
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -338,6 +222,7 @@ var HomePage = (function () {
         transportSearch: 'http://dev.oceanictp.cl:8100/transportSearch/',
         tripByTransport: 'http://dev.oceanictp.cl:8100/trip/transport/',
         tripsFinished: 'http://dev.oceanictp.cl:8100/trip/TF/',
+        tripsInProgress: 'http://dev.oceanictp.cl:8100/trip/DTIP/',
         tripStatusToDriverInTransit: 'http://dev.oceanictp.cl:8100/trip/setStatusDIT/',
         tripStatusInProgress: 'http://dev.oceanictp.cl:8100/trip/setStatusTIP/',
         tripStatusToFinished: 'http://dev.oceanictp.cl:8100/trip/setStatusTF/'
@@ -354,6 +239,9 @@ var HomePage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return EnProcesoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -365,19 +253,40 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 
 
+
+
+
 var EnProcesoPage = (function () {
-    function EnProcesoPage(navCtrl, navParams) {
+    function EnProcesoPage(navCtrl, tripSrv, storage) {
+        var _this = this;
         this.navCtrl = navCtrl;
-        this.navParams = navParams;
+        this.tripSrv = tripSrv;
+        this.storage = storage;
+        this.tripSrv.getTripInProgressByTransport('3')
+            .subscribe(function (data) { return _this.trips = data; });
     }
-    EnProcesoPage.prototype.ionViewDidLoad = function () {
-        console.log('ionViewDidLoad EnProceso');
+    EnProcesoPage.prototype.doRefresh = function (refresher) {
+        var _this = this;
+        console.log('Begin async operation', refresher);
+        this.storage.get('transportId').then(function (t) {
+            console.log('el transportId almacenado es:' + t);
+        });
+        setTimeout(function () {
+            console.log('Async operation has ended');
+            _this.tripSrv.getTripInProgressByTransport('3')
+                .subscribe(function (data) { return _this.trips = data; });
+            refresher.complete();
+        }, 2000);
+    };
+    EnProcesoPage.prototype.onLoadTrip = function (trip, index) {
+        //25-11: Considerar otra TripPage para este punto de completación
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index });
     };
     EnProcesoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-en-proceso',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/en-proceso/en-proceso.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>Servicios Finalizados</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content\n     pullingIcon="arrow-dropdown"\n     pullingText="Pull to refresh"\n     refreshingSpinner="circles"\n     refreshingText="Refreshing...">\n   </ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf = "trips?.length == 0; else elsetag">\n    <ion-card>\n      <img style=" width:auto;\n              height:auto;\n              margin-left: auto;\n              margin-right: auto;\n              width: 80%;\n              "\n      src="../../assets/imgs/reload.png"/>\n      <ion-card-content>\n        <ion-card-title>\n          No existen servicios finalizados.\n          </ion-card-title>\n        <p>\n          Desplice hacia abajo para recargar o intentelo más tarde.\n        </p>\n      </ion-card-content>\n    </ion-card>\n  </div>\n  <ng-template #elsetag>\n    <ion-card *ngFor="let trip of trips; let i = index">\n      <!--<img src="../../assets/imgs/advance-card-map-madison.png">-->\n      <ion-item>\n        <!--<ion-icon name="football" item-start large></ion-icon>-->\n        <h2>Origen: {{trip.pickup_address}}</h2>\n        <h2>Destino: {{trip.destination_address}}</h2>\n        <ion-note>{{ trip.passenger.first_name }}  {{trip.passenger.last_name}}</ion-note>\n        <ion-note>{{trip.mobile_phone}}</ion-note>\n      </ion-item>\n      <ion-item>\n        <span item-start>{{trip.start_trip_dt}}</span>\n        <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">\n          <ion-icon name="navigate"></ion-icon>\n          Start\n        </button>\n      </ion-item>\n    </ion-card>\n  </ng-template>\n\n\n\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/en-proceso/en-proceso.html"*/,
+            selector: 'page-en-proceso',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/en-proceso/en-proceso.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>Servicios en proceso</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content\n     pullingIcon="arrow-dropdown"\n     pullingText="Pull to refresh"\n     refreshingSpinner="circles"\n     refreshingText="Refreshing...">\n   </ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf = "trips?.length == 0; else elsetag">\n    <ion-card>\n      <img style=" width:auto;\n              height:auto;\n              margin-left: auto;\n              margin-right: auto;\n              width: 80%;\n              "\n      src="../../assets/imgs/reload.png"/>\n      <ion-card-content>\n        <ion-card-title>\n          No existen servicios en proceso.\n          </ion-card-title>\n        <p>\n          Desplice hacia abajo para recargar o intentelo más tarde.\n        </p>\n      </ion-card-content>\n    </ion-card>\n  </div>\n  <ng-template #elsetag>\n    <ion-card *ngFor="let trip of trips; let i = index">\n      <!--<img src="../../assets/imgs/advance-card-map-madison.png">-->\n      <ion-item>\n        <!--<ion-icon name="football" item-start large></ion-icon>-->\n        <h2>Origen: {{trip.pickup_address}}</h2>\n        <h2>Destino: {{trip.destination_address}}</h2>\n        <ion-note>{{ trip.passenger.first_name }}  {{trip.passenger.last_name}}</ion-note>\n        <ion-note>{{trip.mobile_phone}}</ion-note>\n      </ion-item>\n      <ion-item>\n        <span item-start>{{trip.start_trip_dt}}</span>\n        <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">\n          <ion-icon name="navigate"></ion-icon>\n          Start\n        </button>\n      </ion-item>\n    </ion-card>\n  </ng-template>\n\n\n\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/en-proceso/en-proceso.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__services_trip__["a" /* tripService */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
     ], EnProcesoPage);
     return EnProcesoPage;
 }());
@@ -393,9 +302,9 @@ var EnProcesoPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return FinalizadoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(102);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -457,8 +366,8 @@ var FinalizadoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(101);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(203);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -591,17 +500,17 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(272);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_tabs__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_tabs__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(202);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_trip_page_trip_page__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_trip_page_trip_page__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_en_proceso_en_proceso__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__pages_finalizado_finalizado__ = __webpack_require__(201);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(279);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_auth__ = __webpack_require__(104);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(52);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_storage__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_trip__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_storage__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_trip__ = __webpack_require__(53);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_utils__ = __webpack_require__(203);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -682,7 +591,7 @@ var AppModule = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_tabs_tabs__ = __webpack_require__(101);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_tabs_tabs__ = __webpack_require__(103);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_login_login__ = __webpack_require__(202);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth__ = __webpack_require__(104);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -740,6 +649,126 @@ var MyApp = (function () {
 }());
 
 //# sourceMappingURL=app.component.js.map
+
+/***/ }),
+
+/***/ 53:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return tripService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_endpoints__ = __webpack_require__(199);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+/*
+  Generated class for the RestapiService provider.
+
+  See https://angular.io/guide/dependency-injection for more info on providers
+  and Angular DI.
+*/
+var tripService = (function () {
+    function tripService(http) {
+        this.http = http;
+        this.EP = __WEBPACK_IMPORTED_MODULE_3__data_endpoints__["a" /* default */];
+    }
+    tripService.prototype.getTripsByTransport = function (transporNumber) {
+        return this.http.get(this.EP[0].tripByTransport + transporNumber)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.getTripInProgressByTransport = function (transporNumber) {
+        return this.http.get(this.EP[0].tripsInProgress + transporNumber)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.getTripFinishedByTransport = function (transporNumber) {
+        return this.http.get(this.EP[0].tripsFinished + transporNumber)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.setTripDriverInTransit = function (tripId) {
+        return this.http.get(this.EP[0].tripStatusToDriverInTransit + tripId)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.setTripInProgress = function (tripId) {
+        return this.http.get(this.EP[0].tripStatusInProgress + tripId)
+            .map(function (res) { return res.json(); });
+    };
+    tripService.prototype.setTripFinished = function (tripId) {
+        return this.http.get(this.EP[0].tripStatusToFinished + tripId)
+            .map(function (res) { return res.json(); });
+    };
+    tripService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_1__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_0__angular_http__["b" /* Http */]])
+    ], tripService);
+    return tripService;
+}());
+
+//# sourceMappingURL=trip.js.map
+
+/***/ }),
+
+/***/ 55:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TripPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+var TripPage = (function () {
+    function TripPage(navCtrl, navParams) {
+        this.navCtrl = navCtrl;
+        this.navParams = navParams;
+    }
+    TripPage.prototype.ngOnInit = function () {
+        this.trip = this.navParams.get('trip');
+        this.index = this.navParams.get('index');
+    };
+    TripPage.prototype.onEditRecipe = function () {
+        //this.navCtrl.push(EditRecipePage, {mode: 'Edit', recipe: this.recipe, index: this.index});
+    };
+    TripPage.prototype.onAddIngredients = function () {
+        //this.slService.addItems(this.recipe.ingredients);
+    };
+    TripPage.prototype.onDeleteRecipe = function () {
+        //this.recipesService.removeRecipe(this.index);
+        this.navCtrl.popToRoot();
+    };
+    TripPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'trip-page',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Trip Details</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <ion-grid>\n    <ion-row>\n        <ion-col text-left>\n          <div class="subtitle"><strong>Pasajero</strong></div>\n        </ion-col>\n        <ion-col text-left>\n          <div class="subtitle">{{trip._id}}{{trip.passenger.first_name}} {{trip.passenger.last_name}}</div>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n        <ion-col text-left>\n          <div class="subtitle"><strong>Convenio</strong></div>\n        </ion-col>\n        <ion-col text-left>\n          <div class="subtitle">{{ trip.customer.name }}</div>\n        </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Origen</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.pickup_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Destino</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.destination_address }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Teléfono 1</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.mobile_phone }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Teléfono 2</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.phone }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Fecha</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.scheduler_trip_dt }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Forma de Pago</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.payment_term }}</div>\n      </ion-col>\n    </ion-row>\n    <ion-row>\n      <ion-col text-left>\n        <div class="subtitle"><strong>Estado Actual</strong></div>\n      </ion-col>\n      <ion-col text-left>\n        <div class="subtitle">{{ trip.current_status }}</div>\n      </ion-col>\n    </ion-row>\n\n    <ion-row>\n      <ion-col *ngIf="trip.current_status == \'assignation\' ">\n        <button\n          ion-button\n          outline\n          block\n\n          (click)="onEditRecipe()">In progress</button>\n      </ion-col>\n      <ion-col *ngIf="trip.current_status == \'transistp\'">\n        <button\n          ion-button\n          outline\n          block\n\n          (click)="onDeleteRecipe()"\n          color="danger">Cancel Trip</button>\n      </ion-col>\n      <ion-col *ngIf="trip.current_status == \'finished\'">\n        <button\n          ion-button\n          outline\n          block\n          (click)="onDeleteRecipe()"\n          color="danger">Cancel Trip</button>\n      </ion-col>\n    </ion-row>\n  </ion-grid>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/trip-page/trip-page.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */]])
+    ], TripPage);
+    return TripPage;
+}());
+
+//# sourceMappingURL=trip-page.js.map
 
 /***/ })
 

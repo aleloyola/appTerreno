@@ -22,6 +22,11 @@ export class tripService {
     return this.http.get(this.EP[0].tripByTransport+transporNumber)
                     .map(res => res.json());
   }
+  
+  getTripInProgressByTransport(transporNumber: string) {
+    return this.http.get(this.EP[0].tripsInProgress+transporNumber)
+                    .map(res => res.json());
+  }
 
   getTripFinishedByTransport(transporNumber: string) {
     return this.http.get(this.EP[0].tripsFinished+transporNumber)

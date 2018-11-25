@@ -75,20 +75,45 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Estado Actual</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.current_status }}</div>
+      </ion-col>
+    </ion-row>
+
+    <ion-row>
+      <ion-col *ngIf="trip.current_status == 'assignation' ">
         <button
           ion-button
           outline
           block
-          (click)="onEditRecipe()">In progress</button>
+          (click)="setTripDriverInTransit()">Hacia el pasajero</button>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="trip.current_status == 'transistp'">
+        <button
+          ion-button
+          outline
+          block
+          (click)="setTripInProgress()"
+          color="danger">Hacia el destino</button>
+      </ion-col>
+      <ion-col *ngIf="trip.current_status == 'transistd'">
+        <button
+          ion-button
+          outline
+          block
+          (click)="setTripFinished()"
+          color="danger">Finalizado</button>
+      </ion-col>
+      <ion-col *ngIf="trip.current_status == 'finished'">
         <button
           ion-button
           outline
           block
           (click)="onDeleteRecipe()"
-          color="danger">Cancel Trip</button>
+          color="danger">Completar</button>
       </ion-col>
     </ion-row>
   </ion-grid>
