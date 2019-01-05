@@ -198,13 +198,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var HomePage = (function () {
     function HomePage(navCtrl, tripSrv, storage) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.tripSrv = tripSrv;
         this.storage = storage;
+        /*this.tripSrv.getTripsByTransport('3')
+              .subscribe(data => this.trips = data);*/
+    }
+    HomePage.prototype.ionViewDidEnter = function () {
+        var _this = this;
         this.tripSrv.getTripsByTransport('3')
             .subscribe(function (data) { return _this.trips = data; });
-    }
+    };
     HomePage.prototype.doRefresh = function (refresher) {
         var _this = this;
         console.log('Begin async operation', refresher);
@@ -280,13 +284,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var EnProcesoPage = (function () {
     function EnProcesoPage(navCtrl, tripSrv, storage) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.tripSrv = tripSrv;
         this.storage = storage;
+        /*this.tripSrv.getTripInProgressByTransport('3')
+              .subscribe(data => this.trips = data);*/
+    }
+    EnProcesoPage.prototype.ionViewDidEnter = function () {
+        var _this = this;
         this.tripSrv.getTripInProgressByTransport('3')
             .subscribe(function (data) { return _this.trips = data; });
-    }
+    };
     EnProcesoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         console.log('Begin async operation', refresher);
@@ -343,13 +351,17 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 var FinalizadoPage = (function () {
     function FinalizadoPage(navCtrl, tripSrv, storage) {
-        var _this = this;
         this.navCtrl = navCtrl;
         this.tripSrv = tripSrv;
         this.storage = storage;
+        /*this.tripSrv.getTripFinishedByTransport('3')
+              .subscribe(data => this.trips = data);*/
+    }
+    FinalizadoPage.prototype.ionViewDidEnter = function () {
+        var _this = this;
         this.tripSrv.getTripFinishedByTransport('3')
             .subscribe(function (data) { return _this.trips = data; });
-    }
+    };
     FinalizadoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         console.log('Begin async operation', refresher);

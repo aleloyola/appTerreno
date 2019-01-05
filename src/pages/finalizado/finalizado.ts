@@ -12,6 +12,11 @@ export class FinalizadoPage {
 
   trips: any;
   constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
+    /*this.tripSrv.getTripFinishedByTransport('3')
+          .subscribe(data => this.trips = data);*/
+  }
+
+  ionViewDidEnter() {
     this.tripSrv.getTripFinishedByTransport('3')
           .subscribe(data => this.trips = data);
   }

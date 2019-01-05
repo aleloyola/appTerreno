@@ -12,6 +12,11 @@ export class EnProcesoPage {
 
   trips: any;
   constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
+    /*this.tripSrv.getTripInProgressByTransport('3')
+          .subscribe(data => this.trips = data);*/
+  }
+
+  ionViewDidEnter() {
     this.tripSrv.getTripInProgressByTransport('3')
           .subscribe(data => this.trips = data);
   }
