@@ -11,37 +11,108 @@
 <ion-content padding>
   <ion-grid>
     <ion-row>
-      <ion-col text-center>
-        <h2>{{ trip.pickup_address }}</h2>
+        <ion-col text-left>
+          <div class="subtitle"><strong>Pasajero</strong></div>
+        </ion-col>
+        <ion-col text-left>
+          <div class="subtitle">{{trip._id}}{{trip.passenger.first_name}} {{trip.passenger.last_name}}</div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+        <ion-col text-left>
+          <div class="subtitle"><strong>Convenio</strong></div>
+        </ion-col>
+        <ion-col text-left>
+          <div class="subtitle">{{ trip.customer.name }}</div>
+        </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Origen</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.pickup_address }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Destino</strong></div>
+      </ion-col>
+      <ion-col text-left>
         <div class="subtitle">{{ trip.destination_address }}</div>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col text-center>
-        <p>{{ trip.mobile_phone }}</p>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Teléfono 1</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.mobile_phone }}</div>
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col text-center>
-        <p>{{ trip.passenger.first_name }}</p>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Teléfono 2</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.phone }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Fecha</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.scheduler_trip_dt }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Forma de Pago</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.payment_term }}</div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-left>
+        <div class="subtitle"><strong>Estado Actual</strong></div>
+      </ion-col>
+      <ion-col text-left>
+        <div class="subtitle">{{ trip.current_status }}</div>
       </ion-col>
     </ion-row>
 
     <ion-row>
-      <ion-col>
+      <ion-col *ngIf="trip.current_status == 'assignation' || trip.current_status == 'report'">
         <button
           ion-button
           outline
           block
-          (click)="onEditRecipe()">In progress</button>
+          (click)="setTripDriverInTransit()">Hacia el pasajero</button>
       </ion-col>
-      <ion-col>
+      <ion-col *ngIf="trip.current_status == 'transistp'">
         <button
           ion-button
           outline
           block
-          (click)="onDeleteRecipe()"
-          color="danger">Cancel Trip</button>
+          (click)="setTripInProgress()"
+          color="danger">Hacia el destino</button>
+      </ion-col>
+      <ion-col *ngIf="trip.current_status == 'transistd'">
+        <button
+          ion-button
+          outline
+          block
+          (click)="setTripFinished()"
+          color="danger">Finalizado</button>
+      </ion-col>
+      <ion-col *ngIf="trip.current_status == 'finished'">
+        <button
+          ion-button
+          outline
+          block
+          color="danger">Completar</button>
       </ion-col>
     </ion-row>
   </ion-grid>

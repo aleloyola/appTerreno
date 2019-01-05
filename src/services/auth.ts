@@ -5,13 +5,17 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 import { Observable } from "rxjs/Observable";
 import { Storage } from '@ionic/storage';
-
+import endpoints from '../data/endpoints';
+import { Endpoint } from '../data/endpoints.interface';
 
 @Injectable()
 export class AuthService {
   data: any;
+  EP : Endpoint[];
   private isLogin: boolean = false;
-  constructor(private http:Http){}
+  constructor(private http:Http){
+    this.EP = endpoints;
+  }
 
   signin(username: string, password: string): Observable<any> {
     console.log("username:"+username+" - pass:"+password);
@@ -20,7 +24,7 @@ export class AuthService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = {username: username, password: password};
-    return this.http.post('http://dev.oceanictp.cl:8100/api/token/', body, options)
+    return this.http.post(this.EP[0].apiToken, body, options)
                     .map(this.extractData)
                     //.catch(this.handleErrorObservable);
   }
@@ -31,7 +35,7 @@ export class AuthService {
   }
 
   getActiveUser(username: string): Observable<any> {
-    return this.http.get('http://dev.oceanictp.cl:8100/transportSearch/'+username+'/')
+    return this.http.get(this.EP[0].transportSearch+username+'/')
                     .map(this.extractData)
                     //.catch(this.handleErrorObservable);
   }

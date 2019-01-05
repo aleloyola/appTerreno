@@ -1,6 +1,8 @@
 
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
+import { tripService } from "../../services/trip";
+import { UtilsService } from "../../services/utils";
 
 @Component({
   selector: 'trip-page',
@@ -11,7 +13,9 @@ export class TripPage implements OnInit {
   index: number;
 
   constructor(public navCtrl: NavController,
-              public navParams: NavParams) {
+              public navParams: NavParams,
+              private utilsService: UtilsService,
+              public tripSrv: tripService) {
   }
 
   ngOnInit() {
@@ -19,16 +23,18 @@ export class TripPage implements OnInit {
     this.index = this.navParams.get('index');
   }
 
-  onEditRecipe() {
-    //this.navCtrl.push(EditRecipePage, {mode: 'Edit', recipe: this.recipe, index: this.index});
+  setTripDriverInTransit() {
+    this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url));
+    this.navCtrl.popToRoot();
   }
 
-  onAddIngredients() {
-    //this.slService.addItems(this.recipe.ingredients);
+  setTripInProgress() {
+    this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url));
+    this.navCtrl.popToRoot();
   }
 
-  onDeleteRecipe() {
-    //this.recipesService.removeRecipe(this.index);
+  setTripFinished() {
+    this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url));
     this.navCtrl.popToRoot();
   }
 }

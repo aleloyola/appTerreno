@@ -31,7 +31,7 @@ export class Login {
 
     this.authService.signin(form.value.email, form.value.password)
           .subscribe( data => {
-                                console.log(data);
+                                //console.log(data);
                                 //loading.dismiss();
                                 this.authService.getActiveUser(form.value.email)
                                       .subscribe( data => {
