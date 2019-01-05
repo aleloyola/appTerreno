@@ -250,6 +250,7 @@ var HomePage = (function () {
         tripsInProgress: 'http://dev.oceanictp.cl:8100/trip/progressTab/',
         tripsFinished: 'http://dev.oceanictp.cl:8100/trip/TF/',
         tripStatusToDriverInTransit: 'http://dev.oceanictp.cl:8100/trip/setStatusDIT/',
+        tripStatusWaiting: 'http://dev.oceanictp.cl:8100/trip/setStatusWAI/',
         tripStatusInProgress: 'http://dev.oceanictp.cl:8100/trip/setStatusTIP/',
         tripStatusToFinished: 'http://dev.oceanictp.cl:8100/trip/setStatusTF/'
     }
@@ -726,6 +727,18 @@ var tripService = (function () {
             });
         });
     };
+    tripService.prototype.setTripDriverWaiting = function (tripId) {
+        var _this = this;
+        var data = { pk: tripId };
+        return new Promise(function (resolve, reject) {
+            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId, JSON.stringify(data))
+                .subscribe(function (res) {
+                resolve(res);
+            }, function (err) {
+                reject(err);
+            });
+        });
+    };
     tripService.prototype.setTripInProgress = function (tripId) {
         var _this = this;
         var data = { pk: tripId };
@@ -799,6 +812,10 @@ var TripPage = (function () {
     };
     TripPage.prototype.setTripDriverInTransit = function () {
         this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url));
+        this.navCtrl.popToRoot();
+    };
+    TripPage.prototype.setTripDriverWaiting = function () {
+        this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url));
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripInProgress = function () {

@@ -5,6 +5,7 @@ export interface Endpoint {
   tripsInProgress: string,
   tripsFinished: string,
   tripStatusToDriverInTransit: string,
+  tripStatusWaiting: string,
   tripStatusInProgress : string,
   tripStatusToFinished : string
 }
