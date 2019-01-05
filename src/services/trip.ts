@@ -1,5 +1,6 @@
-import { Http } from '@angular/http';
 import { Injectable } from '@angular/core';
+import { Http, Response } from "@angular/http";
+import { RequestOptions, Headers } from "@angular/http";
 import 'rxjs/add/operator/map';
 import endpoints from '../data/endpoints';
 import { Endpoint } from '../data/endpoints.interface';
@@ -22,7 +23,7 @@ export class tripService {
     return this.http.get(this.EP[0].tripByTransport+transporNumber)
                     .map(res => res.json());
   }
-  
+
   getTripInProgressByTransport(transporNumber: string) {
     return this.http.get(this.EP[0].tripsInProgress+transporNumber)
                     .map(res => res.json());
@@ -34,17 +35,40 @@ export class tripService {
   }
 
   setTripDriverInTransit(tripId: string){
-    return this.http.get(this.EP[0].tripStatusToDriverInTransit+tripId)
-                    .map(res => res.json())
+    let data = { pk: tripId };
+    return new Promise((resolve, reject) => {
+      this.http.patch(this.EP[0].tripStatusToDriverInTransit+tripId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 
   setTripInProgress(tripId: string){
-    return this.http.get(this.EP[0].tripStatusInProgress+tripId)
-                    .map(res => res.json())
+    let data = { pk: tripId };
+    return new Promise((resolve, reject) => {
+      this.http.patch(this.EP[0].tripStatusInProgress+tripId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
 
+
   setTripFinished(tripId: string){
-    return this.http.get(this.EP[0].tripStatusToFinished+tripId)
-                    .map(res => res.json())
+    let data = { pk: tripId };
+    return new Promise((resolve, reject) => {
+      this.http.patch(this.EP[0].tripStatusToFinished+tripId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
   }
+
 }

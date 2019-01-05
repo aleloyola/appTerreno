@@ -84,7 +84,7 @@
     </ion-row>
 
     <ion-row>
-      <ion-col *ngIf="trip.current_status == 'assignation' ">
+      <ion-col *ngIf="trip.current_status == 'assignation' || trip.current_status == 'report'">
         <button
           ion-button
           outline
@@ -112,7 +112,6 @@
           ion-button
           outline
           block
-          (click)="onDeleteRecipe()"
           color="danger">Completar</button>
       </ion-col>
     </ion-row>
