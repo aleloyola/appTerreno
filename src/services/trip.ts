@@ -46,6 +46,18 @@ export class tripService {
     });
   }
 
+  setTripDriverWaiting(tripId: string){
+    let data = { pk: tripId };
+    return new Promise((resolve, reject) => {
+      this.http.patch(this.EP[0].tripStatusWaiting+tripId, JSON.stringify(data))
+        .subscribe(res => {
+          resolve(res);
+        }, (err) => {
+          reject(err);
+        });
+    });
+  }
+
   setTripInProgress(tripId: string){
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {

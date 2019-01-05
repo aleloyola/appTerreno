@@ -6,6 +6,7 @@ export default [
     tripsInProgress: 'http://dev.oceanictp.cl:8100/trip/progressTab/',
     tripsFinished: 'http://dev.oceanictp.cl:8100/trip/TF/',
     tripStatusToDriverInTransit: 'http://dev.oceanictp.cl:8100/trip/setStatusDIT/',
+    tripStatusWaiting: 'http://dev.oceanictp.cl:8100/trip/setStatusWAI/',
     tripStatusInProgress : 'http://dev.oceanictp.cl:8100/trip/setStatusTIP/',
     tripStatusToFinished : 'http://dev.oceanictp.cl:8100/trip/setStatusTF/'
   }

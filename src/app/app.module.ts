@@ -19,6 +19,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { tripService } from "../services/trip";
 import { UtilsService } from "../services/utils";
 
+import { LaunchNavigator } from '@ionic-native/launch-navigator';
+
 
 @NgModule({
   declarations: [
@@ -52,7 +54,8 @@ import { UtilsService } from "../services/utils";
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AuthService,
     tripService,
-    UtilsService
+    UtilsService,
+    LaunchNavigator
   ]
 })
 export class AppModule {}
