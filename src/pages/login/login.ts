@@ -29,11 +29,11 @@ export class Login {
 
     loading.present().then(()=>{
 
-    this.authService.signin(form.value.email, form.value.password)
+    this.authService.signin(form.value.username, form.value.password)
           .subscribe( data => {
                                 //console.log(data);
                                 //loading.dismiss();
-                                this.authService.getActiveUser(form.value.email)
+                                this.authService.getActiveUser(form.value.username)
                                       .subscribe( data => {
                                                               console.log(data);
                                                               //console.log(data[0].url);
@@ -41,7 +41,7 @@ export class Login {
                                                               //let len = data[0].url.length;
                                                               //var transportId = data[0].url.substring(len-2, len-1);
                                                               console.log("TransportID: " + this.utilsService.getIdFromURL(data[0].url));
-                                                              this.storage.set('username', form.value.email);
+                                                              this.storage.set('username', form.value.username);
                                                               this.storage.set('transportId', this.utilsService.getIdFromURL(data[0].url));
                                                               loading.dismiss();
                                                               this.navCtrl.setRoot(TabsPage);

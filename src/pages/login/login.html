@@ -17,11 +17,11 @@
   <form #f="ngForm" (ngSubmit)="onSignin(f)">
     <ion-list>
       <ion-item>
-        <ion-label fixed>Mail</ion-label>
+        <ion-label fixed>Usuario</ion-label>
         <ion-input
-          type="email"
+          type="text"
           ngModel
-          name="email"
+          name="username"
           required></ion-input>
       </ion-item>
       <ion-item>

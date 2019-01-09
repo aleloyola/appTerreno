@@ -15,7 +15,7 @@
           <div class="subtitle"><strong>Pasajero</strong></div>
         </ion-col>
         <ion-col text-left>
-          <div class="subtitle">{{trip._id}}{{trip.passenger.first_name}} {{trip.passenger.last_name}}</div>
+          <div class="subtitle">{{trip.passenger.first_name}} {{trip.passenger.last_name}}</div>
         </ion-col>
     </ion-row>
     <ion-row>
@@ -91,7 +91,14 @@
           block
           (click)="setTripDriverInTransit()">Hacia el pasajero</button>
       </ion-col>
-      <ion-col *ngIf="trip.current_status == 'transistp'">
+      <ion-col *ngIf="trip.current_status == 'transitp'">
+        <button
+          ion-button
+          outline
+          block
+          (click)="setTripDriverWaiting()">Esperando al pasajero</button>
+      </ion-col>
+      <ion-col *ngIf="trip.current_status == 'waiting'">
         <button
           ion-button
           outline
@@ -99,7 +106,7 @@
           (click)="setTripInProgress()"
           color="danger">Hacia el destino</button>
       </ion-col>
-      <ion-col *ngIf="trip.current_status == 'transistd'">
+      <ion-col *ngIf="trip.current_status == 'transitd'">
         <button
           ion-button
           outline
@@ -113,6 +120,11 @@
           outline
           block
           color="danger">Completar</button>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-left>
+        <button ion-button block (click)="launchNav()">Navegar al destino</button>
       </ion-col>
     </ion-row>
   </ion-grid>

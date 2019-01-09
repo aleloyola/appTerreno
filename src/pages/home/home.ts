@@ -10,19 +10,25 @@ import { TripPage } from "../trip-page/trip-page";
 })
 export class HomePage {
   trips: any;
+  transportId: string;
   constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
-    this.tripSrv.getTripsByTransport('3')
-          .subscribe(data => this.trips = data);
+
+  }
+
+  ionViewDidEnter() {
+    this.storage.get('transportId').then((t) => {
+      console.log('el transportId almacenado es:'+t);
+      this.transportId = t;
+      this.tripSrv.getTripsByTransport(this.transportId)
+            .subscribe(data => this.trips = data);
+    });
+
   }
 
   doRefresh(refresher) {
-    console.log('Begin async operation', refresher);
-    this.storage.get('transportId').then((t) => {
-      console.log('el transportId almacenado es:'+t);
-    });
     setTimeout(() => {
       console.log('Async operation has ended');
-      this.tripSrv.getTripsByTransport('3')
+      this.tripSrv.getTripsByTransport(this.transportId)
             .subscribe(data => this.trips = data);
       refresher.complete();
     }, 2000);
