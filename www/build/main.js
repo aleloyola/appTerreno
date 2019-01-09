@@ -430,11 +430,11 @@ var Login = (function () {
             content: 'Signing you in...'
         });
         loading.present().then(function () {
-            _this.authService.signin(form.value.email, form.value.password)
+            _this.authService.signin(form.value.username, form.value.password)
                 .subscribe(function (data) {
                 //console.log(data);
                 //loading.dismiss();
-                _this.authService.getActiveUser(form.value.email)
+                _this.authService.getActiveUser(form.value.username)
                     .subscribe(function (data) {
                     console.log(data);
                     //console.log(data[0].url);
@@ -442,7 +442,7 @@ var Login = (function () {
                     //let len = data[0].url.length;
                     //var transportId = data[0].url.substring(len-2, len-1);
                     console.log("TransportID: " + _this.utilsService.getIdFromURL(data[0].url));
-                    _this.storage.set('username', form.value.email);
+                    _this.storage.set('username', form.value.username);
                     _this.storage.set('transportId', _this.utilsService.getIdFromURL(data[0].url));
                     loading.dismiss();
                     _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
@@ -470,7 +470,7 @@ var Login = (function () {
     };
     Login = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start>\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Login</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #f="ngForm" (ngSubmit)="onSignin(f)">\n    <ion-list>\n      <ion-item>\n        <ion-label fixed>Mail</ion-label>\n        <ion-input\n          type="email"\n          ngModel\n          name="email"\n          required></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-label fixed>Password</ion-label>\n        <ion-input\n          type="password"\n          ngModel\n          name="password"\n          required></ion-input>\n      </ion-item>\n    </ion-list>\n    <button ion-button block type="submit" [disabled]="!f.valid">Signin</button>\n  </form>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start>\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Login</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <form #f="ngForm" (ngSubmit)="onSignin(f)">\n    <ion-list>\n      <ion-item>\n        <ion-label fixed>Usuario</ion-label>\n        <ion-input\n          type="text"\n          ngModel\n          name="username"\n          required></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-label fixed>Password</ion-label>\n        <ion-input\n          type="password"\n          ngModel\n          name="password"\n          required></ion-input>\n      </ion-item>\n    </ion-list>\n    <button ion-button block type="submit" [disabled]="!f.valid">Signin</button>\n  </form>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_auth__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
