@@ -201,23 +201,21 @@ var HomePage = (function () {
         this.navCtrl = navCtrl;
         this.tripSrv = tripSrv;
         this.storage = storage;
-        /*this.tripSrv.getTripsByTransport('3')
-              .subscribe(data => this.trips = data);*/
     }
     HomePage.prototype.ionViewDidEnter = function () {
         var _this = this;
-        this.tripSrv.getTripsByTransport('3')
-            .subscribe(function (data) { return _this.trips = data; });
+        this.storage.get('transportId').then(function (t) {
+            console.log('el transportId almacenado es:' + t);
+            _this.transportId = t;
+            _this.tripSrv.getTripsByTransport(_this.transportId)
+                .subscribe(function (data) { return _this.trips = data; });
+        });
     };
     HomePage.prototype.doRefresh = function (refresher) {
         var _this = this;
-        console.log('Begin async operation', refresher);
-        this.storage.get('transportId').then(function (t) {
-            console.log('el transportId almacenado es:' + t);
-        });
         setTimeout(function () {
             console.log('Async operation has ended');
-            _this.tripSrv.getTripsByTransport('3')
+            _this.tripSrv.getTripsByTransport(_this.transportId)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
@@ -293,18 +291,17 @@ var EnProcesoPage = (function () {
     }
     EnProcesoPage.prototype.ionViewDidEnter = function () {
         var _this = this;
-        this.tripSrv.getTripInProgressByTransport('3')
-            .subscribe(function (data) { return _this.trips = data; });
+        this.storage.get('transportId').then(function (t) {
+            console.log('el transportId almacenado es:' + t);
+            _this.transportId = t;
+            _this.tripSrv.getTripInProgressByTransport(_this.transportId)
+                .subscribe(function (data) { return _this.trips = data; });
+        });
     };
     EnProcesoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
-        console.log('Begin async operation', refresher);
-        this.storage.get('transportId').then(function (t) {
-            console.log('el transportId almacenado es:' + t);
-        });
         setTimeout(function () {
-            console.log('Async operation has ended');
-            _this.tripSrv.getTripInProgressByTransport('3')
+            _this.tripSrv.getTripInProgressByTransport(_this.transportId)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
@@ -360,18 +357,17 @@ var FinalizadoPage = (function () {
     }
     FinalizadoPage.prototype.ionViewDidEnter = function () {
         var _this = this;
-        this.tripSrv.getTripFinishedByTransport('3')
-            .subscribe(function (data) { return _this.trips = data; });
+        this.storage.get('transportId').then(function (t) {
+            console.log('el transportId almacenado es:' + t);
+            _this.transportId = t;
+            _this.tripSrv.getTripFinishedByTransport(_this.transportId)
+                .subscribe(function (data) { return _this.trips = data; });
+        });
     };
     FinalizadoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
-        console.log('Begin async operation', refresher);
-        this.storage.get('transportId').then(function (t) {
-            console.log('el transportId almacenado es:' + t);
-        });
         setTimeout(function () {
-            console.log('Async operation has ended');
-            _this.tripSrv.getTripFinishedByTransport('3')
+            _this.tripSrv.getTripFinishedByTransport(_this.transportId)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
