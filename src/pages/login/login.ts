@@ -30,10 +30,11 @@ export class Login {
     loading.present().then(()=>{
 
     this.authService.signin(form.value.username, form.value.password)
-          .subscribe( data => {
-                                //console.log(data);
+          .subscribe( dataAuth => {
+                                console.log(dataAuth.token);
+                                this.storage.set('token', dataAuth.token);
                                 //loading.dismiss();
-                                this.authService.getActiveUser(form.value.username)
+                                this.authService.getActiveUser(form.value.username, dataAuth.token)
                                       .subscribe( data => {
                                                               console.log(data);
                                                               //console.log(data[0].url);

@@ -109,8 +109,10 @@ var AuthService = (function () {
         console.log("deslogeando");
         return true;
     };
-    AuthService.prototype.getActiveUser = function (username) {
-        return this.http.get(this.EP[0].transportSearch + username + '/')
+    AuthService.prototype.getActiveUser = function (username, token) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
+        return this.http.get(this.EP[0].transportSearch + username + '/', { headers: headers })
             .map(this.extractData);
         //.catch(this.handleErrorObservable);
     };
@@ -129,9 +131,10 @@ var AuthService = (function () {
     };
     AuthService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
     ], AuthService);
     return AuthService;
+    var _a;
 }());
 
 //# sourceMappingURL=auth.js.map
@@ -242,15 +245,15 @@ var HomePage = (function () {
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ([
     {
-        apiToken: 'http://dev.oceanictp.cl:8100/api/token/',
-        transportSearch: 'http://dev.oceanictp.cl:8100/transportSearch/',
-        tripByTransport: 'http://dev.oceanictp.cl:8100/trip/pendingTab/',
-        tripsInProgress: 'http://dev.oceanictp.cl:8100/trip/progressTab/',
-        tripsFinished: 'http://dev.oceanictp.cl:8100/trip/TF/',
-        tripStatusToDriverInTransit: 'http://dev.oceanictp.cl:8100/trip/setStatusDIT/',
-        tripStatusWaiting: 'http://dev.oceanictp.cl:8100/trip/setStatusWAI/',
-        tripStatusInProgress: 'http://dev.oceanictp.cl:8100/trip/setStatusTIP/',
-        tripStatusToFinished: 'http://dev.oceanictp.cl:8100/trip/setStatusTF/'
+        apiToken: 'https://api.oceanictp.cl/api-token-auth/',
+        transportSearch: 'https://api.oceanictp.cl/transportSearch/',
+        tripByTransport: 'https://api.oceanictp.cl/trip/pendingTab/',
+        tripsInProgress: 'https://api.oceanictp.cl/trip/progressTab/',
+        tripsFinished: 'https://api.oceanictp.cl/trip/TF/',
+        tripStatusToDriverInTransit: 'https://api.oceanictp.cl/trip/setStatusDIT/',
+        tripStatusWaiting: 'https://api.oceanictp.cl/trip/setStatusWAI/',
+        tripStatusInProgress: 'https://api.oceanictp.cl/trip/setStatusTIP/',
+        tripStatusToFinished: 'https://api.oceanictp.cl/trip/setStatusTF/'
     }
 ]);
 //# sourceMappingURL=endpoints.js.map
@@ -431,10 +434,11 @@ var Login = (function () {
         });
         loading.present().then(function () {
             _this.authService.signin(form.value.username, form.value.password)
-                .subscribe(function (data) {
-                //console.log(data);
+                .subscribe(function (dataAuth) {
+                console.log(dataAuth.token);
+                _this.storage.set('token', dataAuth.token);
                 //loading.dismiss();
-                _this.authService.getActiveUser(form.value.username)
+                _this.authService.getActiveUser(form.value.username, dataAuth.token)
                     .subscribe(function (data) {
                     console.log(data);
                     //console.log(data[0].url);

@@ -34,8 +34,11 @@ export class AuthService {
     return true;
   }
 
-  getActiveUser(username: string): Observable<any> {
-    return this.http.get(this.EP[0].transportSearch+username+'/')
+  getActiveUser(username: string, token: string): Observable<any> {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+
+    return this.http.get(this.EP[0].transportSearch+username+'/', {headers: headers})
                     .map(this.extractData)
                     //.catch(this.handleErrorObservable);
   }
