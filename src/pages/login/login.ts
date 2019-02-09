@@ -24,16 +24,17 @@ export class Login {
 
   onSignin(form: NgForm) {
     const loading = this.loadingCtrl.create({
-      content: 'Signing you in...'
+      content: 'Ingresando a Oceanic...'
     });
 
     loading.present().then(()=>{
 
     this.authService.signin(form.value.username, form.value.password)
-          .subscribe( data => {
-                                //console.log(data);
+          .subscribe( dataAuth => {
+                                console.log(dataAuth.token);
+                                this.storage.set('token', dataAuth.token);
                                 //loading.dismiss();
-                                this.authService.getActiveUser(form.value.username)
+                                this.authService.getActiveUser(form.value.username, dataAuth.token)
                                       .subscribe( data => {
                                                               console.log(data);
                                                               //console.log(data[0].url);
@@ -49,7 +50,7 @@ export class Login {
                                                 error => {
                                                   if(loading) loading.dismiss();
                                                   const alert = this.alertCtrl.create({
-                                                      title: 'User is not a driver!',
+                                                      title: 'Usuario ingresado no es un conductor!',
                                                       message: error.message,
                                                       buttons: ['Ok']
                                                             });
@@ -61,7 +62,7 @@ export class Login {
                       error => {
                         if(loading) loading.dismiss();
                         const alert = this.alertCtrl.create({
-                            title: 'User not defined!',
+                            title: 'Usuario no definido!',
                             message: error.message,
                             buttons: ['Ok']
                                   });

@@ -25677,3 +25677,101 @@ ion-navbar.toolbar {
   min-height: calc(46px + constant(safe-area-inset-bottom));
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
+
+.ios page-en-proceso .content, .md page-en-proceso .content, .wp page-en-proceso .content {
+  color: black;
+}
+
+.ios page-en-proceso .month, .md page-en-proceso .month, .wp page-en-proceso .month {
+  font-size: 2.8rem;
+  color: red;
+}
+
+.ios page-en-proceso .day, .md page-en-proceso .day, .wp page-en-proceso .day {
+  font-size: 2.6rem;
+  color: black;
+}
+
+.ios page-en-proceso .time, .md page-en-proceso .time, .wp page-en-proceso .time {
+  font-size: 1.6rem;
+  color: black;
+}
+
+.ios page-en-proceso .fab-container, .md page-en-proceso .fab-container, .wp page-en-proceso .fab-container {
+  position: relative;
+}
+
+.ios page-en-proceso .event-name, .md page-en-proceso .event-name, .wp page-en-proceso .event-name {
+  padding-top: 10px;
+}
+
+.ios page-en-proceso .event-location, .md page-en-proceso .event-location, .wp page-en-proceso .event-location {
+  padding-top: 6px;
+}
+
+.ios page-finalizado .content, .md page-finalizado .content, .wp page-finalizado .content {
+  color: black;
+}
+
+.ios page-finalizado .month, .md page-finalizado .month, .wp page-finalizado .month {
+  font-size: 2.8rem;
+  color: red;
+}
+
+.ios page-finalizado .day, .md page-finalizado .day, .wp page-finalizado .day {
+  font-size: 2.6rem;
+  color: black;
+}
+
+.ios page-finalizado .time, .md page-finalizado .time, .wp page-finalizado .time {
+  font-size: 1.6rem;
+  color: black;
+}
+
+.ios page-finalizado .fab-container, .md page-finalizado .fab-container, .wp page-finalizado .fab-container {
+  position: relative;
+}
+
+.ios page-finalizado .event-name, .md page-finalizado .event-name, .wp page-finalizado .event-name {
+  padding-top: 10px;
+}
+
+.ios page-finalizado .event-location, .md page-finalizado .event-location, .wp page-finalizado .event-location {
+  padding-top: 6px;
+}
+
+.ios page-home .content, .md page-home .content, .wp page-home .content {
+  color: black;
+}
+
+.ios page-home .month, .md page-home .month, .wp page-home .month {
+  font-size: 2.8rem;
+  color: red;
+}
+
+.ios page-home .day, .md page-home .day, .wp page-home .day {
+  font-size: 2.6rem;
+  color: black;
+}
+
+.ios page-home .time, .md page-home .time, .wp page-home .time {
+  font-size: 1.6rem;
+  color: black;
+}
+
+.ios page-home .fab-container, .md page-home .fab-container, .wp page-home .fab-container {
+  position: relative;
+}
+
+.ios page-home .event-name, .md page-home .event-name, .wp page-home .event-name {
+  padding-top: 10px;
+}
+
+.ios page-home .event-location, .md page-home .event-location, .wp page-home .event-location {
+  padding-top: 6px;
+}
+
+page-login img {
+  margin: 0 auto;
+  display: block;
+}

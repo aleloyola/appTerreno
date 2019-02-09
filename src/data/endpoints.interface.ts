@@ -1,5 +1,7 @@
 export interface Endpoint {
-  apiToken: string,
+  tokenAuth: string,
+  tokenRefresh: string,
+  tokenVerify: string,
   transportSearch: string,
   tripByTransport: string,
   tripsInProgress: string,

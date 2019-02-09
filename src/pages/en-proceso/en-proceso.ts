@@ -11,23 +11,29 @@ import { TripPage } from "../trip-page/trip-page";
 export class EnProcesoPage {
   transportId: string;
   trips: any;
+  token: string;
   constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
     /*this.tripSrv.getTripInProgressByTransport('3')
           .subscribe(data => this.trips = data);*/
   }
 
   ionViewDidEnter() {
+    this.storage.get('token').then((token) => {
+      console.log('el token almacenado es:'+token);
+      this.token = token;
+    });
+
     this.storage.get('transportId').then((t) => {
       console.log('el transportId almacenado es:'+t);
       this.transportId = t;
-      this.tripSrv.getTripInProgressByTransport(this.transportId)
+      this.tripSrv.getTripInProgressByTransport(this.transportId, this.token)
             .subscribe(data => this.trips = data);
-          });
+    });
   }
 
   doRefresh(refresher) {
     setTimeout(() => {
-      this.tripSrv.getTripInProgressByTransport(this.transportId)
+      this.tripSrv.getTripInProgressByTransport(this.transportId, this.token)
             .subscribe(data => this.trips = data);
       refresher.complete();
     }, 2000);
@@ -35,7 +41,7 @@ export class EnProcesoPage {
 
   onLoadTrip(trip: any, index: number) {
     //25-11: Considerar otra TripPage para este punto de completación
-    this.navCtrl.push(TripPage, {trip: trip, index: index});
+    this.navCtrl.push(TripPage, {trip: trip, index: index, token: this.token});
   }
 
 }

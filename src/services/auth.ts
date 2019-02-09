@@ -24,9 +24,9 @@ export class AuthService {
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = {username: username, password: password};
-    return this.http.post(this.EP[0].apiToken, body, options)
+    return this.http.post(this.EP[0].tokenAuth, body, options)
                     .map(this.extractData)
-                    //.catch(this.handleErrorObservable);
+                    .catch(this.handleErrorObservable);
   }
 
   logout() {
@@ -34,10 +34,13 @@ export class AuthService {
     return true;
   }
 
-  getActiveUser(username: string): Observable<any> {
-    return this.http.get(this.EP[0].transportSearch+username+'/')
+  getActiveUser(username: string, token: string): Observable<any> {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+
+    return this.http.get(this.EP[0].transportSearch+username+'/', {headers: headers})
                     .map(this.extractData)
-                    //.catch(this.handleErrorObservable);
+                    .catch(this.handleErrorObservable);
   }
 
   isUserLogin(){
@@ -52,9 +55,21 @@ export class AuthService {
 
 
   private handleErrorObservable (error: Response | any) {
-    /*console.error(error.message || error);
-    return Observable.throw(error.message || error);*/
-    return error;
+    /*if (error.status === 500) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 400) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 409) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 406) {
+        return Observable.throw(new Error(error.status));
+    }*/
+    console.error(error.message || error);
+    return Observable.throw(error.message || error);
+    /*return error;*/
   }
 
 }
