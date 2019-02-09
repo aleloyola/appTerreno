@@ -9,9 +9,9 @@
   <ion-refresher (ionRefresh)="doRefresh($event)">
     <ion-refresher-content
      pullingIcon="arrow-dropdown"
-     pullingText="Pull to refresh"
+     pullingText="Desplace hacia abajo para refrescar"
      refreshingSpinner="circles"
-     refreshingText="Refreshing...">
+     refreshingText="Refrescando...">
    </ion-refresher-content>
   </ion-refresher>
 
@@ -37,20 +37,30 @@
   <ng-template #elsetag>
     <ion-card *ngFor="let trip of trips; let i = index">
       <!--<img src="../../assets/imgs/advance-card-map-madison.png">-->
-      <ion-item>
-        <!--<ion-icon name="football" item-start large></ion-icon>-->
-        <h2>Origen: {{trip.pickup_address}}</h2>
-        <h2>Destino: {{trip.destination_address}}</h2>
-        <ion-note>{{ trip.passenger.first_name }}  {{trip.passenger.last_name}}</ion-note>
-        <ion-note>{{trip.mobile_phone}}</ion-note>
-      </ion-item>
-      <ion-item>
-        <span item-start>{{trip.start_trip_dt}}</span>
-        <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">
-          <ion-icon name="navigate"></ion-icon>
-          Start
-        </button>
-      </ion-item>
+      <ion-card-content>
+        <ion-row no-padding>
+          <ion-col col-3 text-center>
+            <p class="month">
+              {{ trip.scheduler_trip_dt | date: 'MMM'}}
+            </p>
+            <p class="day">
+              {{ trip.scheduler_trip_dt | date: 'dd'}}
+            </p>
+            <p class="time">{{trip.scheduler_trip_dt | date: 'H:mm' }} </p>
+          </ion-col>
+          <ion-col class="event-name">
+              <p>{{ trip.pickup_address }}</p>
+              <p>{{ trip.passenger.first_name }} {{trip.passenger.last_name}}</p>
+              <p>{{ trip.customer.name }}
+              <p>{{trip.destination_address}}</p>
+              <ion-note>{{trip.mobile_phone}}</ion-note>
+              <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">
+                <ion-icon name="navigate"></ion-icon>
+                Detalles
+              </button>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
     </ion-card>
   </ng-template>
 

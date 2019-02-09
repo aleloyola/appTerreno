@@ -24,7 +24,7 @@ export class Login {
 
   onSignin(form: NgForm) {
     const loading = this.loadingCtrl.create({
-      content: 'Signing you in...'
+      content: 'Ingresando a Oceanic...'
     });
 
     loading.present().then(()=>{
@@ -50,7 +50,7 @@ export class Login {
                                                 error => {
                                                   if(loading) loading.dismiss();
                                                   const alert = this.alertCtrl.create({
-                                                      title: 'User is not a driver!',
+                                                      title: 'Usuario ingresado no es un conductor!',
                                                       message: error.message,
                                                       buttons: ['Ok']
                                                             });
@@ -62,7 +62,7 @@ export class Login {
                       error => {
                         if(loading) loading.dismiss();
                         const alert = this.alertCtrl.create({
-                            title: 'User not defined!',
+                            title: 'Usuario no definido!',
                             message: error.message,
                             buttons: ['Ok']
                                   });

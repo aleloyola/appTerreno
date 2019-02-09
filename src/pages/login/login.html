@@ -7,13 +7,14 @@
         <ion-icon name="menu"></ion-icon>
       </button>
     </ion-buttons>
-    <ion-title>Login</ion-title>
+    <ion-title>Bienvenido a Oceanic</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+  <img src="../../assets/imgs/logoOceanic.png">
   <form #f="ngForm" (ngSubmit)="onSignin(f)">
     <ion-list>
       <ion-item>
@@ -33,6 +34,6 @@
           required></ion-input>
       </ion-item>
     </ion-list>
-    <button ion-button block type="submit" [disabled]="!f.valid">Signin</button>
+    <button ion-button block type="submit" [disabled]="!f.valid">Ingresar</button>
   </form>
 </ion-content>
