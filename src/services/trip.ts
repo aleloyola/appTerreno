@@ -4,6 +4,7 @@ import { RequestOptions, Headers } from "@angular/http";
 import 'rxjs/add/operator/map';
 import endpoints from '../data/endpoints';
 import { Endpoint } from '../data/endpoints.interface';
+import { Observable } from "rxjs/Observable";
 /*
   Generated class for the RestapiService provider.
 
@@ -19,25 +20,34 @@ export class tripService {
     this.EP = endpoints;
   }
 
-  getTripsByTransport(transporNumber: string) {
-    return this.http.get(this.EP[0].tripByTransport+transporNumber)
+  getTripsByTransport(transporNumber: string, token: string) {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+    return this.http.get(this.EP[0].tripByTransport+transporNumber, { headers: headers })
                     .map(res => res.json());
   }
 
-  getTripInProgressByTransport(transporNumber: string) {
-    return this.http.get(this.EP[0].tripsInProgress+transporNumber)
+  getTripInProgressByTransport(transporNumber: string, token: string) {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+    return this.http.get(this.EP[0].tripsInProgress+transporNumber, { headers: headers })
+                    .map(res => res.json())
+                    .catch(this.handleErrorObservable);
+  }
+
+  getTripFinishedByTransport(transporNumber: string, token: string) {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+    return this.http.get(this.EP[0].tripsFinished+transporNumber, { headers: headers })
                     .map(res => res.json());
   }
 
-  getTripFinishedByTransport(transporNumber: string) {
-    return this.http.get(this.EP[0].tripsFinished+transporNumber)
-                    .map(res => res.json());
-  }
-
-  setTripDriverInTransit(tripId: string){
+  setTripDriverInTransit(tripId: string, token: string){
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusToDriverInTransit+tripId, JSON.stringify(data))
+      this.http.patch(this.EP[0].tripStatusToDriverInTransit+tripId, JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -46,10 +56,12 @@ export class tripService {
     });
   }
 
-  setTripDriverWaiting(tripId: string){
+  setTripDriverWaiting(tripId: string, token: string){
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusWaiting+tripId, JSON.stringify(data))
+      this.http.patch(this.EP[0].tripStatusWaiting+tripId, JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -58,10 +70,12 @@ export class tripService {
     });
   }
 
-  setTripInProgress(tripId: string){
+  setTripInProgress(tripId: string, token: string){
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusInProgress+tripId, JSON.stringify(data))
+      this.http.patch(this.EP[0].tripStatusInProgress+tripId, JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -71,16 +85,36 @@ export class tripService {
   }
 
 
-  setTripFinished(tripId: string){
+  setTripFinished(tripId: string, token: string){
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusToFinished+tripId, JSON.stringify(data))
+      this.http.patch(this.EP[0].tripStatusToFinished+tripId, JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
           reject(err);
         });
     });
+  }
+
+  private handleErrorObservable (error: Response | any) {
+    /*if (error.status === 500) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 400) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 409) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 406) {
+        return Observable.throw(new Error(error.status));
+    }*/
+    console.error(error.message || error);
+    return Observable.throw(error.message || error);
+    /*return error;*/
   }
 
 }

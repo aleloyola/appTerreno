@@ -1,6 +1,8 @@
 export default [
   {
-    apiToken: 'https://api.oceanictp.cl/api-token-auth/',
+    tokenAuth: 'https://api.oceanictp.cl/api-token-auth/',
+    tokenRefresh: 'https://api.oceanictp.cl/api-token-refresh/',
+    tokenVerify: 'https://api.oceanictp.cl/api-token-verify/',
     transportSearch: 'https://api.oceanictp.cl/transportSearch/',
     tripByTransport: 'https://api.oceanictp.cl/trip/pendingTab/',
     tripsInProgress: 'https://api.oceanictp.cl/trip/progressTab/',

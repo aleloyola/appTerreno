@@ -68,12 +68,14 @@ var UtilsService = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AuthService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__ = __webpack_require__(285);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_rxjs_add_operator_catch__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__data_endpoints__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__data_endpoints__ = __webpack_require__(201);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -89,11 +91,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthService = (function () {
     function AuthService(http) {
         this.http = http;
         this.isLogin = false;
-        this.EP = __WEBPACK_IMPORTED_MODULE_4__data_endpoints__["a" /* default */];
+        this.EP = __WEBPACK_IMPORTED_MODULE_5__data_endpoints__["a" /* default */];
     }
     AuthService.prototype.signin = function (username, password) {
         console.log("username:" + username + " - pass:" + password);
@@ -101,9 +104,9 @@ var AuthService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]({ 'Content-Type': 'application/json' });
         var options = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["d" /* RequestOptions */]({ headers: headers });
         var body = { username: username, password: password };
-        return this.http.post(this.EP[0].apiToken, body, options)
-            .map(this.extractData);
-        //.catch(this.handleErrorObservable);
+        return this.http.post(this.EP[0].tokenAuth, body, options)
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
     };
     AuthService.prototype.logout = function () {
         console.log("deslogeando");
@@ -113,8 +116,8 @@ var AuthService = (function () {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append("Authorization", "Bearer " + token);
         return this.http.get(this.EP[0].transportSearch + username + '/', { headers: headers })
-            .map(this.extractData);
-        //.catch(this.handleErrorObservable);
+            .map(this.extractData)
+            .catch(this.handleErrorObservable);
     };
     AuthService.prototype.isUserLogin = function () {
         return this.isLogin;
@@ -125,16 +128,27 @@ var AuthService = (function () {
         return body || {};
     };
     AuthService.prototype.handleErrorObservable = function (error) {
-        /*console.error(error.message || error);
-        return Observable.throw(error.message || error);*/
-        return error;
+        /*if (error.status === 500) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 400) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 409) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 406) {
+            return Observable.throw(new Error(error.status));
+        }*/
+        console.error(error.message || error);
+        return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].throw(error.message || error);
+        /*return error;*/
     };
     AuthService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]) === "function" && _a || Object])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_http__["b" /* Http */]])
     ], AuthService);
     return AuthService;
-    var _a;
 }());
 
 //# sourceMappingURL=auth.js.map
@@ -183,7 +197,7 @@ webpackEmptyAsyncContext.id = 159;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -207,10 +221,14 @@ var HomePage = (function () {
     }
     HomePage.prototype.ionViewDidEnter = function () {
         var _this = this;
+        this.storage.get('token').then(function (token) {
+            console.log('el token almacenado es:' + token);
+            _this.token = token;
+        });
         this.storage.get('transportId').then(function (t) {
             console.log('el transportId almacenado es:' + t);
             _this.transportId = t;
-            _this.tripSrv.getTripsByTransport(_this.transportId)
+            _this.tripSrv.getTripsByTransport(_this.transportId, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
         });
     };
@@ -218,13 +236,13 @@ var HomePage = (function () {
         var _this = this;
         setTimeout(function () {
             console.log('Async operation has ended');
-            _this.tripSrv.getTripsByTransport(_this.transportId)
+            _this.tripSrv.getTripsByTransport(_this.transportId, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
     };
     HomePage.prototype.onLoadTrip = function (trip, index) {
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index });
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index, token: this.token });
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -245,7 +263,9 @@ var HomePage = (function () {
 "use strict";
 /* harmony default export */ __webpack_exports__["a"] = ([
     {
-        apiToken: 'https://api.oceanictp.cl/api-token-auth/',
+        tokenAuth: 'https://api.oceanictp.cl/api-token-auth/',
+        tokenRefresh: 'https://api.oceanictp.cl/api-token-refresh/',
+        tokenVerify: 'https://api.oceanictp.cl/api-token-verify/',
         transportSearch: 'https://api.oceanictp.cl/transportSearch/',
         tripByTransport: 'https://api.oceanictp.cl/trip/pendingTab/',
         tripsInProgress: 'https://api.oceanictp.cl/trip/progressTab/',
@@ -268,7 +288,7 @@ var HomePage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -294,24 +314,28 @@ var EnProcesoPage = (function () {
     }
     EnProcesoPage.prototype.ionViewDidEnter = function () {
         var _this = this;
+        this.storage.get('token').then(function (token) {
+            console.log('el token almacenado es:' + token);
+            _this.token = token;
+        });
         this.storage.get('transportId').then(function (t) {
             console.log('el transportId almacenado es:' + t);
             _this.transportId = t;
-            _this.tripSrv.getTripInProgressByTransport(_this.transportId)
+            _this.tripSrv.getTripInProgressByTransport(_this.transportId, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
         });
     };
     EnProcesoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         setTimeout(function () {
-            _this.tripSrv.getTripInProgressByTransport(_this.transportId)
+            _this.tripSrv.getTripInProgressByTransport(_this.transportId, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
     };
     EnProcesoPage.prototype.onLoadTrip = function (trip, index) {
         //25-11: Considerar otra TripPage para este punto de completación
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index });
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index, token: this.token });
     };
     EnProcesoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -334,7 +358,7 @@ var EnProcesoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -360,24 +384,28 @@ var FinalizadoPage = (function () {
     }
     FinalizadoPage.prototype.ionViewDidEnter = function () {
         var _this = this;
+        this.storage.get('token').then(function (token) {
+            console.log('el token almacenado es:' + token);
+            _this.token = token;
+        });
         this.storage.get('transportId').then(function (t) {
             console.log('el transportId almacenado es:' + t);
             _this.transportId = t;
-            _this.tripSrv.getTripFinishedByTransport(_this.transportId)
+            _this.tripSrv.getTripFinishedByTransport(_this.transportId, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
         });
     };
     FinalizadoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         setTimeout(function () {
-            _this.tripSrv.getTripFinishedByTransport(_this.transportId)
+            _this.tripSrv.getTripFinishedByTransport(_this.transportId, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
     };
     FinalizadoPage.prototype.onLoadTrip = function (trip, index) {
         //25-11: Considerar otra TripPage para este punto de completación
-        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index });
+        this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__["a" /* TripPage */], { trip: trip, index: index, token: this.token });
     };
     FinalizadoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -401,7 +429,7 @@ var FinalizadoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(103);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(104);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -522,8 +550,8 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_status_bar__ = __webpack_require__(288);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ionic_native_splash_screen__ = __webpack_require__(289);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__services_auth__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(54);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_storage__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_trip__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_utils__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_launch_navigator__ = __webpack_require__(202);
@@ -675,10 +703,12 @@ var MyApp = (function () {
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return tripService; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(54);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_http__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__ = __webpack_require__(200);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_rxjs_add_operator_map__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__data_endpoints__ = __webpack_require__(201);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -688,6 +718,8 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
+
 
 
 
@@ -703,23 +735,32 @@ var tripService = (function () {
         this.http = http;
         this.EP = __WEBPACK_IMPORTED_MODULE_3__data_endpoints__["a" /* default */];
     }
-    tripService.prototype.getTripsByTransport = function (transporNumber) {
-        return this.http.get(this.EP[0].tripByTransport + transporNumber)
+    tripService.prototype.getTripsByTransport = function (transporNumber, token) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
+        return this.http.get(this.EP[0].tripByTransport + transporNumber, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    tripService.prototype.getTripInProgressByTransport = function (transporNumber) {
-        return this.http.get(this.EP[0].tripsInProgress + transporNumber)
+    tripService.prototype.getTripInProgressByTransport = function (transporNumber, token) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
+        return this.http.get(this.EP[0].tripsInProgress + transporNumber, { headers: headers })
+            .map(function (res) { return res.json(); })
+            .catch(this.handleErrorObservable);
+    };
+    tripService.prototype.getTripFinishedByTransport = function (transporNumber, token) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
+        return this.http.get(this.EP[0].tripsFinished + transporNumber, { headers: headers })
             .map(function (res) { return res.json(); });
     };
-    tripService.prototype.getTripFinishedByTransport = function (transporNumber) {
-        return this.http.get(this.EP[0].tripsFinished + transporNumber)
-            .map(function (res) { return res.json(); });
-    };
-    tripService.prototype.setTripDriverInTransit = function (tripId) {
+    tripService.prototype.setTripDriverInTransit = function (tripId, token) {
         var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusToDriverInTransit + tripId, JSON.stringify(data))
+            _this.http.patch(_this.EP[0].tripStatusToDriverInTransit + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -727,11 +768,13 @@ var tripService = (function () {
             });
         });
     };
-    tripService.prototype.setTripDriverWaiting = function (tripId) {
+    tripService.prototype.setTripDriverWaiting = function (tripId, token) {
         var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId, JSON.stringify(data))
+            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -739,11 +782,13 @@ var tripService = (function () {
             });
         });
     };
-    tripService.prototype.setTripInProgress = function (tripId) {
+    tripService.prototype.setTripInProgress = function (tripId, token) {
         var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusInProgress + tripId, JSON.stringify(data))
+            _this.http.patch(_this.EP[0].tripStatusInProgress + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -751,17 +796,36 @@ var tripService = (function () {
             });
         });
     };
-    tripService.prototype.setTripFinished = function (tripId) {
+    tripService.prototype.setTripFinished = function (tripId, token) {
         var _this = this;
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusToFinished + tripId, JSON.stringify(data))
+            _this.http.patch(_this.EP[0].tripStatusToFinished + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
                 reject(err);
             });
         });
+    };
+    tripService.prototype.handleErrorObservable = function (error) {
+        /*if (error.status === 500) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 400) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 409) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 406) {
+            return Observable.throw(new Error(error.status));
+        }*/
+        console.error(error.message || error);
+        return __WEBPACK_IMPORTED_MODULE_4_rxjs_Observable__["Observable"].throw(error.message || error);
+        /*return error;*/
     };
     tripService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["A" /* Injectable */])(),
@@ -809,21 +873,22 @@ var TripPage = (function () {
     TripPage.prototype.ngOnInit = function () {
         this.trip = this.navParams.get('trip');
         this.index = this.navParams.get('index');
+        this.token = this.navParams.get('token');
     };
     TripPage.prototype.setTripDriverInTransit = function () {
-        this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url));
+        this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url), this.token);
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripDriverWaiting = function () {
-        this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url));
+        this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url), this.token);
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripInProgress = function () {
-        this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url));
+        this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url), this.token);
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripFinished = function () {
-        this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url));
+        this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url), this.token);
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.lauchNav = function (address) {

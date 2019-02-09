@@ -12,6 +12,7 @@ import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-na
 export class TripPage implements OnInit {
   trip: any;
   index: number;
+  token: string;
 
   constructor(public navCtrl: NavController,
               public navParams: NavParams,
@@ -23,23 +24,24 @@ export class TripPage implements OnInit {
   ngOnInit() {
     this.trip = this.navParams.get('trip');
     this.index = this.navParams.get('index');
+    this.token = this.navParams.get('token');
   }
 
   setTripDriverInTransit() {
-    this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url));
+    this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url), this.token);
     this.navCtrl.popToRoot();
   }
   setTripDriverWaiting(){
-    this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url));
+    this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url), this.token);
     this.navCtrl.popToRoot();
   }
   setTripInProgress() {
-    this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url));
+    this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url), this.token);
     this.navCtrl.popToRoot();
   }
 
   setTripFinished() {
-    this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url));
+    this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url), this.token);
     this.navCtrl.popToRoot();
   }
 
