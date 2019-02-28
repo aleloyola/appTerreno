@@ -27,14 +27,7 @@
         },
         "ionic-plugin-keyboard": {
             "PACKAGE_NAME": "com.ionicframework.ionicrestcall637820"
-        },
-        "uk.co.workingedge.phonegap.plugin.launchnavigator": {
-            "PACKAGE_NAME": "com.ionicframework.ionicrestcall637820"
         }
     },
-    "dependent_plugins": {
-        "cordova-plugin-actionsheet": {
-            "PACKAGE_NAME": "com.ionicframework.ionicrestcall637820"
-        }
-    }
+    "dependent_plugins": {}
 }

@@ -30,7 +30,7 @@ buildscript {
     // http://tools.android.com/tech-docs/new-build-system/version-compatibility
     // and https://issues.apache.org/jira/browse/CB-8143
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.1'
+        classpath 'com.android.tools.build:gradle:2.2.3'
     }
 }
 
@@ -177,7 +177,7 @@ android {
     }
 
     compileSdkVersion cdvCompileSdkVersion
-    buildToolsVersion cdvBuildToolsVersion
+    buildToolsVersion "25.0.0"
 
     if (Boolean.valueOf(cdvBuildMultipleApks)) {
         productFlavors {
@@ -218,8 +218,9 @@ android {
     */
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_6
-        targetCompatibility JavaVersion.VERSION_1_6
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+        incremental false
     }
 
     if (cdvReleaseSigningPropertiesFile) {
@@ -249,7 +250,6 @@ dependencies {
     // SUB-PROJECT DEPENDENCIES START
     debugCompile(project(path: "CordovaLib", configuration: "debug"))
     releaseCompile(project(path: "CordovaLib", configuration: "release"))
-    compile "com.squareup.okhttp3:okhttp:3+"
     // SUB-PROJECT DEPENDENCIES END
 }
 
