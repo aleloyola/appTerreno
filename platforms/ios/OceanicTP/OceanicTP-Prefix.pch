@@ -17,7 +17,7 @@
  under the License.
  */
 //
-// Prefix header for all source files of the 'MyApp' target in the 'MyApp' project
+// Prefix header for all source files of the 'OceanicTP' target in the 'OceanicTP' project
 //
 
 #ifdef __OBJC__
