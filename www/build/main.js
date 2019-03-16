@@ -246,7 +246,7 @@ var HomePage = (function () {
     };
     HomePage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/home/home.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>Servicios asignados</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content\n     pullingIcon="arrow-dropdown"\n     pullingText="Desplace hacia abajo para refrescar"\n     refreshingSpinner="circles"\n     refreshingText="Refrescando...">\n   </ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf = "trips?.length == 0; else elsetag">\n    <ion-card>\n      <img style=" width:auto;\n              height:auto;\n              margin-left: auto;\n              margin-right: auto;\n              width: 80%;\n              "\n      src="../../assets/imgs/reload.png"/>\n      <ion-card-content>\n        <ion-card-title>\n          No existen servicios asignados.\n          </ion-card-title>\n        <p>\n          Desplace hacia abajo para recargar o intentelo más tarde.\n        </p>\n      </ion-card-content>\n    </ion-card>\n  </div>\n  <ng-template #elsetag>\n    <ion-card *ngFor="let trip of trips; let i = index">\n      <img src="../../assets/imgs/advance-card-map-madison.png">\n      <ion-card-content>\n        <ion-row no-padding>\n          <ion-col col-3 text-center>\n            <p class="month">\n              {{ trip.scheduler_trip_dt | date: \'MMM\'}}\n            </p>\n            <p class="day">\n              {{ trip.scheduler_trip_dt | date: \'dd\'}}\n            </p>\n            <p class="time">{{trip.scheduler_trip_dt | date: \'H:mm\' }} </p>\n          </ion-col>\n          <ion-col class="event-name">\n              <p>{{ trip.pickup_address }}</p>\n              <p>{{ trip.passenger.first_name }} {{trip.passenger.last_name}}</p>\n              <p>{{ trip.customer.name }}\n              <p>{{trip.destination_address}}</p>\n              <ion-note>{{trip.mobile_phone}}</ion-note>\n              <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">\n                <ion-icon name="navigate"></ion-icon>\n                Detalles\n              </button>\n          </ion-col>\n        </ion-row>\n      </ion-card-content>\n    </ion-card>\n  </ng-template>\n\n\n\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/home/home.html"*/
+            selector: 'page-home',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/home/home.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>Servicios asignados</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content\n     pullingIcon="arrow-dropdown"\n     pullingText="Desplace hacia abajo para refrescar"\n     refreshingSpinner="circles"\n     refreshingText="Refrescando...">\n   </ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf = "trips?.length == 0; else elsetag">\n    <ion-card>\n      <img style=" width:auto;\n              height:auto;\n              margin-left: auto;\n              margin-right: auto;\n              width: 80%;\n              "\n      src="assets/imgs/reload.png"/>\n      <ion-card-content>\n        <ion-card-title>\n          No existen servicios asignados.\n          </ion-card-title>\n        <p>\n          Desplace hacia abajo para recargar o intentelo más tarde.\n        </p>\n      </ion-card-content>\n    </ion-card>\n  </div>\n  <ng-template #elsetag>\n    <ion-card *ngFor="let trip of trips; let i = index">\n      <img src="assets/imgs/advance-card-map-madison.png">\n      <ion-card-content>\n        <ion-row no-padding>\n          <ion-col col-3 text-center>\n            <p class="month">\n              {{ trip.scheduler_trip_dt | date: \'MMM\'}}\n            </p>\n            <p class="day">\n              {{ trip.scheduler_trip_dt | date: \'dd\'}}\n            </p>\n            <p class="time">{{trip.scheduler_trip_dt | date: \'H:mm\' }} </p>\n          </ion-col>\n          <ion-col class="event-name">\n              <p>{{ trip.pickup_address }}</p>\n              <p>{{ trip.passenger.first_name }} {{trip.passenger.last_name}}</p>\n              <p>{{ trip.customer.name }}\n              <p>{{trip.destination_address}}</p>\n              <ion-note>{{trip.mobile_phone}}</ion-note>\n              <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">\n                <ion-icon name="navigate"></ion-icon>\n                Detalles\n              </button>\n          </ion-col>\n        </ion-row>\n      </ion-card-content>\n    </ion-card>\n  </ng-template>\n\n\n\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/home/home.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__services_trip__["a" /* tripService */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
     ], HomePage);
@@ -502,7 +502,7 @@ var Login = (function () {
     };
     Login = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-login',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start>\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Bienvenido a Oceanic</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <img src="../../assets/imgs/logoOceanic.png">\n  <form #f="ngForm" (ngSubmit)="onSignin(f)">\n    <ion-list>\n      <ion-item>\n        <ion-label fixed>Usuario</ion-label>\n        <ion-input\n          type="text"\n          ngModel\n          name="username"\n          required></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-label fixed>Password</ion-label>\n        <ion-input\n          type="password"\n          ngModel\n          name="password"\n          required></ion-input>\n      </ion-item>\n    </ion-list>\n    <button ion-button block type="submit" [disabled]="!f.valid">Ingresar</button>\n  </form>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/,
+            selector: 'page-login',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/`\n<ion-header>\n\n  <ion-navbar>\n    <ion-buttons start>\n      <button ion-button icon-only menuToggle>\n        <ion-icon name="menu"></ion-icon>\n      </button>\n    </ion-buttons>\n    <ion-title>Bienvenido a Oceanic</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <img src="assets/imgs/logoOceanic.png">\n  <form #f="ngForm" (ngSubmit)="onSignin(f)">\n    <ion-list>\n      <ion-item>\n        <ion-label fixed>Usuario</ion-label>\n        <ion-input\n          type="text"\n          ngModel\n          name="username"\n          required></ion-input>\n      </ion-item>\n      <ion-item>\n        <ion-label fixed>Password</ion-label>\n        <ion-input\n          type="password"\n          ngModel\n          name="password"\n          required></ion-input>\n      </ion-item>\n    </ion-list>\n    <button ion-button block type="submit" [disabled]="!f.valid">Ingresar</button>\n  </form>\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/login/login.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__services_auth__["a" /* AuthService */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_storage__["b" /* Storage */],
@@ -738,20 +738,20 @@ var tripService = (function () {
     tripService.prototype.getTripsByTransport = function (transporNumber, token) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append("Authorization", "Bearer " + token);
-        return this.http.get(this.EP[0].tripByTransport + transporNumber, { headers: headers })
+        return this.http.get(this.EP[0].tripByTransport + transporNumber + '/', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     tripService.prototype.getTripInProgressByTransport = function (transporNumber, token) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append("Authorization", "Bearer " + token);
-        return this.http.get(this.EP[0].tripsInProgress + transporNumber, { headers: headers })
+        return this.http.get(this.EP[0].tripsInProgress + transporNumber + '/', { headers: headers })
             .map(function (res) { return res.json(); })
             .catch(this.handleErrorObservable);
     };
     tripService.prototype.getTripFinishedByTransport = function (transporNumber, token) {
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
         headers.append("Authorization", "Bearer " + token);
-        return this.http.get(this.EP[0].tripsFinished + transporNumber, { headers: headers })
+        return this.http.get(this.EP[0].tripsFinished + transporNumber + '/', { headers: headers })
             .map(function (res) { return res.json(); });
     };
     tripService.prototype.setTripDriverInTransit = function (tripId, token) {
@@ -760,7 +760,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusToDriverInTransit + tripId, JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusToDriverInTransit + tripId + '/', JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -774,7 +774,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId, JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId + '/', JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -788,7 +788,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusInProgress + tripId, JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusInProgress + tripId + '/', JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -802,7 +802,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusToFinished + tripId, JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusToFinished + tripId + '/', JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
