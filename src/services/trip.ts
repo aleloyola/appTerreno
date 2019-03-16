@@ -23,14 +23,14 @@ export class tripService {
   getTripsByTransport(transporNumber: string, token: string) {
     let headers = new Headers();
     headers.append("Authorization", "Bearer " + token);
-    return this.http.get(this.EP[0].tripByTransport+transporNumber, { headers: headers })
+    return this.http.get(this.EP[0].tripByTransport+transporNumber+'/', { headers: headers })
                     .map(res => res.json());
   }
 
   getTripInProgressByTransport(transporNumber: string, token: string) {
     let headers = new Headers();
     headers.append("Authorization", "Bearer " + token);
-    return this.http.get(this.EP[0].tripsInProgress+transporNumber, { headers: headers })
+    return this.http.get(this.EP[0].tripsInProgress+transporNumber+'/', { headers: headers })
                     .map(res => res.json())
                     .catch(this.handleErrorObservable);
   }
@@ -38,7 +38,7 @@ export class tripService {
   getTripFinishedByTransport(transporNumber: string, token: string) {
     let headers = new Headers();
     headers.append("Authorization", "Bearer " + token);
-    return this.http.get(this.EP[0].tripsFinished+transporNumber, { headers: headers })
+    return this.http.get(this.EP[0].tripsFinished+transporNumber+'/', { headers: headers })
                     .map(res => res.json());
   }
 
@@ -47,7 +47,7 @@ export class tripService {
     headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusToDriverInTransit+tripId, JSON.stringify(data), { headers: headers })
+      this.http.patch(this.EP[0].tripStatusToDriverInTransit+tripId+'/', JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -61,7 +61,7 @@ export class tripService {
     headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusWaiting+tripId, JSON.stringify(data), { headers: headers })
+      this.http.patch(this.EP[0].tripStatusWaiting+tripId+'/', JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -75,7 +75,7 @@ export class tripService {
     headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusInProgress+tripId, JSON.stringify(data), { headers: headers })
+      this.http.patch(this.EP[0].tripStatusInProgress+tripId+'/', JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
@@ -90,7 +90,7 @@ export class tripService {
     headers.append("Authorization", "Bearer " + token);
     let data = { pk: tripId };
     return new Promise((resolve, reject) => {
-      this.http.patch(this.EP[0].tripStatusToFinished+tripId, JSON.stringify(data), { headers: headers })
+      this.http.patch(this.EP[0].tripStatusToFinished+tripId+'/', JSON.stringify(data), { headers: headers })
         .subscribe(res => {
           resolve(res);
         }, (err) => {
