@@ -3,6 +3,7 @@ import { NavController, NavParams } from "ionic-angular";
 import { tripService } from "../../services/trip";
 import { Storage } from '@ionic/storage';
 import { TripPage } from "../trip-page/trip-page";
+import { UtilsService } from "../../services/utils";
 
 @Component({
   selector: 'page-finalizado',
@@ -12,9 +13,12 @@ export class FinalizadoPage {
   transportId: string;
   trips: any;
   token: string;
-  constructor(public navCtrl: NavController, public tripSrv: tripService, private storage: Storage) {
-    /*this.tripSrv.getTripFinishedByTransport('3')
-          .subscribe(data => this.trips = data);*/
+  month: string;
+  year: string;
+  constructor(public navCtrl: NavController,
+              public tripSrv: tripService,
+              private storage: Storage,
+              private utils: UtilsService) {
   }
 
   ionViewDidEnter() {
@@ -25,14 +29,16 @@ export class FinalizadoPage {
     this.storage.get('transportId').then((t) => {
       console.log('el transportId almacenado es:'+t);
       this.transportId = t;
-      this.tripSrv.getTripFinishedByTransport(this.transportId, this.token)
+      this.month = this.utils.getMonthFormated().toString();
+      this.year = new Date().getFullYear().toString();
+      this.tripSrv.getTripFinishedByTransportAndDate(this.transportId,this.year,this.month, this.token)
             .subscribe(data => this.trips = data);
           });
   }
 
   doRefresh(refresher) {
     setTimeout(() => {
-      this.tripSrv.getTripFinishedByTransport(this.transportId, this.token)
+      this.tripSrv.getTripFinishedByTransportAndDate(this.transportId,this.year,this.month, this.token)
             .subscribe(data => this.trips = data);
       refresher.complete();
     }, 2000);

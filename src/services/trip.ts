@@ -42,6 +42,13 @@ export class tripService {
                     .map(res => res.json());
   }
 
+  getTripFinishedByTransportAndDate(transporNumber: string, year: string,month: string, token: string) {
+    let headers = new Headers();
+    headers.append("Authorization", "Bearer " + token);
+    return this.http.get(this.EP[0].tripsFinishedByDate+transporNumber+"/"+year+"/"+month+"/", { headers: headers })
+                    .map(res => res.json());
+  }
+
   setTripDriverInTransit(tripId: string, token: string){
     let headers = new Headers();
     headers.append("Authorization", "Bearer " + token);

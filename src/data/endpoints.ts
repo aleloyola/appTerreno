@@ -7,6 +7,7 @@ export default [
     tripByTransport: 'https://api.oceanictp.cl/trip/pendingTab/',
     tripsInProgress: 'https://api.oceanictp.cl/trip/progressTab/',
     tripsFinished: 'https://api.oceanictp.cl/trip/TF/',
+    tripsFinishedByDate: 'https://api.oceanictp.cl/trip/finishedByDate/',
     tripStatusToDriverInTransit: 'https://api.oceanictp.cl/trip/setStatusDIT/',
     tripStatusWaiting: 'https://api.oceanictp.cl/trip/setStatusWAI/',
     tripStatusInProgress : 'https://api.oceanictp.cl/trip/setStatusTIP/',
