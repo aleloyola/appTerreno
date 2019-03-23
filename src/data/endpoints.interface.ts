@@ -6,6 +6,7 @@ export interface Endpoint {
   tripByTransport: string,
   tripsInProgress: string,
   tripsFinished: string,
+  tripsFinishedByDate: string,
   tripStatusToDriverInTransit: string,
   tripStatusWaiting: string,
   tripStatusInProgress : string,

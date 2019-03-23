@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 103:
+/***/ 104:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -37,28 +37,6 @@ var TabsPage = (function () {
 }());
 
 //# sourceMappingURL=tabs.js.map
-
-/***/ }),
-
-/***/ 104:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UtilsService; });
-var UtilsService = (function () {
-    function UtilsService() {
-    }
-    UtilsService.prototype.getIdFromURL = function (URL) {
-        var str = URL;
-        var len = str.length;
-        var array = str.split("/");
-        var res = array[array.length - 2];
-        return res;
-    };
-    return UtilsService;
-}());
-
-//# sourceMappingURL=utils.js.map
 
 /***/ }),
 
@@ -270,6 +248,7 @@ var HomePage = (function () {
         tripByTransport: 'https://api.oceanictp.cl/trip/pendingTab/',
         tripsInProgress: 'https://api.oceanictp.cl/trip/progressTab/',
         tripsFinished: 'https://api.oceanictp.cl/trip/TF/',
+        tripsFinishedByDate: 'https://api.oceanictp.cl/trip/finishedByDate/',
         tripStatusToDriverInTransit: 'https://api.oceanictp.cl/trip/setStatusDIT/',
         tripStatusWaiting: 'https://api.oceanictp.cl/trip/setStatusWAI/',
         tripStatusInProgress: 'https://api.oceanictp.cl/trip/setStatusTIP/',
@@ -360,6 +339,7 @@ var EnProcesoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(40);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__trip_page_trip_page__ = __webpack_require__(55);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(56);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -374,13 +354,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var FinalizadoPage = (function () {
-    function FinalizadoPage(navCtrl, tripSrv, storage) {
+    function FinalizadoPage(navCtrl, tripSrv, storage, utils) {
         this.navCtrl = navCtrl;
         this.tripSrv = tripSrv;
         this.storage = storage;
-        /*this.tripSrv.getTripFinishedByTransport('3')
-              .subscribe(data => this.trips = data);*/
+        this.utils = utils;
     }
     FinalizadoPage.prototype.ionViewDidEnter = function () {
         var _this = this;
@@ -391,14 +371,16 @@ var FinalizadoPage = (function () {
         this.storage.get('transportId').then(function (t) {
             console.log('el transportId almacenado es:' + t);
             _this.transportId = t;
-            _this.tripSrv.getTripFinishedByTransport(_this.transportId, _this.token)
+            _this.month = _this.utils.getMonthFormated().toString();
+            _this.year = new Date().getFullYear().toString();
+            _this.tripSrv.getTripFinishedByTransportAndDate(_this.transportId, _this.year, _this.month, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
         });
     };
     FinalizadoPage.prototype.doRefresh = function (refresher) {
         var _this = this;
         setTimeout(function () {
-            _this.tripSrv.getTripFinishedByTransport(_this.transportId, _this.token)
+            _this.tripSrv.getTripFinishedByTransportAndDate(_this.transportId, _this.year, _this.month, _this.token)
                 .subscribe(function (data) { return _this.trips = data; });
             refresher.complete();
         }, 2000);
@@ -411,7 +393,10 @@ var FinalizadoPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-finalizado',template:/*ion-inline-start:"/Users/alexis/Developer/ionic/appTerreno/src/pages/finalizado/finalizado.html"*/`<ion-header>\n  <ion-navbar>\n    <ion-title>Servicios Finalizados</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n\n  <ion-refresher (ionRefresh)="doRefresh($event)">\n    <ion-refresher-content\n     pullingIcon="arrow-dropdown"\n     pullingText="Desplace hacia abajo para refrescar"\n     refreshingSpinner="circles"\n     refreshingText="Refrescando...">\n   </ion-refresher-content>\n  </ion-refresher>\n\n  <div *ngIf = "trips?.length == 0; else elsetag">\n    <ion-card>\n      <img style=" width:auto;\n              height:auto;\n              margin-left: auto;\n              margin-right: auto;\n              width: 80%;\n              "\n      src="assets/imgs/reload.png"/>\n      <ion-card-content>\n        <ion-card-title>\n          No existen servicios finalizados.\n          </ion-card-title>\n        <p>\n          Desplice hacia abajo para recargar o intentelo más tarde.\n        </p>\n      </ion-card-content>\n    </ion-card>\n  </div>\n  <ng-template #elsetag>\n    <ion-card *ngFor="let trip of trips; let i = index">\n      <!--<img src="../../assets/imgs/advance-card-map-madison.png">-->\n      <ion-card-content>\n        <ion-row no-padding>\n          <ion-col col-3 text-center>\n            <p class="month">\n              {{ trip.scheduler_trip_dt | date: \'MMM\'}}\n            </p>\n            <p class="day">\n              {{ trip.scheduler_trip_dt | date: \'dd\'}}\n            </p>\n            <p class="time">{{trip.scheduler_trip_dt | date: \'H:mm\' }} </p>\n          </ion-col>\n          <ion-col class="event-name">\n              <p>{{ trip.pickup_address }}</p>\n              <p>{{ trip.passenger.first_name }} {{trip.passenger.last_name}}</p>\n              <p>{{ trip.customer.name }}\n              <p>{{trip.destination_address}}</p>\n              <ion-note>{{trip.mobile_phone}}</ion-note>\n              <button ion-button icon-start clear item-end (click)="onLoadTrip(trip, i)">\n                <ion-icon name="navigate"></ion-icon>\n                Detalles\n              </button>\n          </ion-col>\n        </ion-row>\n      </ion-card-content>\n    </ion-card>\n  </ng-template>\n\n\n\n</ion-content>\n`/*ion-inline-end:"/Users/alexis/Developer/ionic/appTerreno/src/pages/finalizado/finalizado.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__services_trip__["a" /* tripService */], __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavController */],
+            __WEBPACK_IMPORTED_MODULE_2__services_trip__["a" /* tripService */],
+            __WEBPACK_IMPORTED_MODULE_3__ionic_storage__["b" /* Storage */],
+            __WEBPACK_IMPORTED_MODULE_5__services_utils__["a" /* UtilsService */]])
     ], FinalizadoPage);
     return FinalizadoPage;
 }());
@@ -428,9 +413,9 @@ var FinalizadoPage = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_auth__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_storage__ = __webpack_require__(42);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_utils__ = __webpack_require__(56);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -542,7 +527,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(273);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_home_home__ = __webpack_require__(199);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_tabs__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_tabs_tabs__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_login_login__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_trip_page_trip_page__ = __webpack_require__(55);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__pages_en_proceso_en_proceso__ = __webpack_require__(204);
@@ -553,7 +538,7 @@ Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* pl
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__angular_http__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__ionic_storage__ = __webpack_require__(42);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__services_trip__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_utils__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__services_utils__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__ionic_native_launch_navigator__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -636,7 +621,7 @@ var AppModule = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_tabs_tabs__ = __webpack_require__(103);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__pages_tabs_tabs__ = __webpack_require__(104);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__pages_login_login__ = __webpack_require__(206);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__services_auth__ = __webpack_require__(107);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
@@ -754,6 +739,12 @@ var tripService = (function () {
         return this.http.get(this.EP[0].tripsFinished + transporNumber + '/', { headers: headers })
             .map(function (res) { return res.json(); });
     };
+    tripService.prototype.getTripFinishedByTransportAndDate = function (transporNumber, year, month, token) {
+        var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
+        headers.append("Authorization", "Bearer " + token);
+        return this.http.get(this.EP[0].tripsFinishedByDate + transporNumber + "/" + year + "/" + month + "/", { headers: headers })
+            .map(function (res) { return res.json(); });
+    };
     tripService.prototype.setTripDriverInTransit = function (tripId, token) {
         var _this = this;
         var headers = new __WEBPACK_IMPORTED_MODULE_1__angular_http__["a" /* Headers */]();
@@ -846,7 +837,7 @@ var tripService = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(27);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_trip__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_utils__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__services_utils__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ionic_native_launch_navigator__ = __webpack_require__(202);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -910,6 +901,32 @@ var TripPage = (function () {
 }());
 
 //# sourceMappingURL=trip-page.js.map
+
+/***/ }),
+
+/***/ 56:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return UtilsService; });
+var UtilsService = (function () {
+    function UtilsService() {
+    }
+    UtilsService.prototype.getIdFromURL = function (URL) {
+        var str = URL;
+        var len = str.length;
+        var array = str.split("/");
+        var res = array[array.length - 2];
+        return res;
+    };
+    UtilsService.prototype.getMonthFormated = function () {
+        var date = new Date(), month = date.getMonth() + 1;
+        return month + 1 < 10 ? ("0" + month) : month;
+    };
+    return UtilsService;
+}());
+
+//# sourceMappingURL=utils.js.map
 
 /***/ })
 
