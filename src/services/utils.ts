@@ -12,7 +12,8 @@ export class UtilsService{
 
    getMonthFormated() {
       var date = new Date(),
-          month = date.getMonth()+1;
+      month = date.getMonth()+1;
+      
       return month+1 < 10 ? ("0" + month) : month;
     }
 
