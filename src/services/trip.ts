@@ -24,7 +24,8 @@ export class tripService {
     let headers = new Headers();
     headers.append("Authorization", "Bearer " + token);
     return this.http.get(this.EP[0].tripByTransport+transporNumber+'/', { headers: headers })
-                    .map(res => res.json());
+                    .map(res => res.json())
+                    .catch(this.handleErrorObservable);
   }
 
   getTripInProgressByTransport(transporNumber: string, token: string) {

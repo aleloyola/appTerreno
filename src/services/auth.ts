@@ -29,6 +29,16 @@ export class AuthService {
                     .catch(this.handleErrorObservable);
   }
 
+  getRefreshToken(actualToken: string): Observable<any> {
+    //agregar archivo properties con las URLs
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    let body = {token: actualToken};
+    return this.http.post(this.EP[0].tokenRefresh, body, options)
+                    .map(this.extractData)
+                    .catch(this.handleErrorObservable);
+  }
+  
   logout() {
     console.log("deslogeando");
     return true;
