@@ -29,16 +29,18 @@ export class HomePage {
       console.log('el transportId almacenado es:'+t);
       this.transportId = t;
       this.tripSrv.getTripsByTransport(this.transportId, this.token)
-            .subscribe(data => this.trips = data, Error => this.handleErrorObservable);
+            .subscribe((data) => { this.trips = data }, 
+                      (error) => { this.handleErrorObservable });
     });
 
   }
 
   doRefresh(refresher) {
     setTimeout(() => {
-      console.log('Async operation has ended');
+      //console.log('Async operation has ended');
       this.tripSrv.getTripsByTransport(this.transportId, this.token)
-            .subscribe(data => this.trips = data, Error => this.handleErrorObservable);
+                  .subscribe((data) => { this.trips = data }, 
+                            (error) => { this.handleErrorObservable });
       refresher.complete();
     }, 2000);
   }
@@ -48,6 +50,8 @@ export class HomePage {
   }
 
   private handleErrorObservable (error: Response | any) {
+    console.log("handle error!");
+
     if (error.status === 401) {
         console.log("Sessin expired");
         this.authService.getRefreshToken(this.token).subscribe( dataAuth => {
