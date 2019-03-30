@@ -29,8 +29,8 @@ export class HomePage {
       console.log('el transportId almacenado es:'+t);
       this.transportId = t;
       this.tripSrv.getTripsByTransport(this.transportId, this.token)
-            .subscribe((data) => { this.trips = data }, 
-                      (error) => { this.handleErrorObservable });
+            .subscribe((data) => { this.trips = data },
+                      (error) => { this.handleErrorObservable(error) });
     });
 
   }
@@ -39,7 +39,7 @@ export class HomePage {
     setTimeout(() => {
       //console.log('Async operation has ended');
       this.tripSrv.getTripsByTransport(this.transportId, this.token)
-                  .subscribe((data) => { this.trips = data }, 
+                  .subscribe((data) => { this.trips = data },
                             (error) => { this.handleErrorObservable });
       refresher.complete();
     }, 2000);

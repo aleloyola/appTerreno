@@ -108,7 +108,7 @@ export class tripService {
   }
 
   private handleErrorObservable (error: Response | any) {
-    /*if (error.status === 500) {
+    if (error.status === 500) {
         return Observable.throw(new Error(error.status));
     }
     else if (error.status === 400) {
@@ -119,10 +119,15 @@ export class tripService {
     }
     else if (error.status === 406) {
         return Observable.throw(new Error(error.status));
-    }*/
-    console.error(error.message || error);
-    return Observable.throw(error.message || error);
-    /*return error;*/
+    }
+    else if(error.status === 401) {
+      console.log("Session expired");
+      return Observable.throw(new Error(error.status));
+    }else
+    {
+      console.error(error.message || error);
+      return Observable.throw(error.message || error);
+    }
   }
 
 }
