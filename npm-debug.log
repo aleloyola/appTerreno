@@ -36,7 +36,7 @@
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid ionic-hello-world@0.0.0
 16 verbose cwd /Users/alexis/Developer/ionic/appTerreno
-17 error Darwin 18.2.0
+17 error Darwin 18.5.0
 18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "run" "ionic:serve" "--" "--v2" "--address" "0.0.0.0" "--port" "8100" "--livereload-port" "35729"
 19 error node v6.9.5
 20 error npm  v3.10.10

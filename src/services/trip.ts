@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import endpoints from '../data/endpoints';
 import { Endpoint } from '../data/endpoints.interface';
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/throw';
 /*
   Generated class for the RestapiService provider.
 
@@ -24,7 +25,8 @@ export class tripService {
     let headers = new Headers();
     headers.append("Authorization", "Bearer " + token);
     return this.http.get(this.EP[0].tripByTransport+transporNumber+'/', { headers: headers })
-                    .map(res => res.json());
+                    .map(res => res.json())
+                    .catch(this.handleErrorObservable);
   }
 
   getTripInProgressByTransport(transporNumber: string, token: string) {
@@ -107,7 +109,11 @@ export class tripService {
   }
 
   private handleErrorObservable (error: Response | any) {
-    /*if (error.status === 500) {
+    interface Error{
+      status?: number;
+    }
+
+    if (error.status === 500) {
         return Observable.throw(new Error(error.status));
     }
     else if (error.status === 400) {
@@ -118,10 +124,18 @@ export class tripService {
     }
     else if (error.status === 406) {
         return Observable.throw(new Error(error.status));
-    }*/
-    console.error(error.message || error);
-    return Observable.throw(error.message || error);
-    /*return error;*/
+    }
+    else if(error.status === 401) {
+      //console.log("Session expired");
+      let err: any;
+      err = new Error('Session Expired');
+      err.status = 401;
+      return Observable.throw(err);
+    }else
+    {
+      console.error(error.message || error);
+      return Observable.throw(error.message || error);
+    }
   }
 
 }

@@ -18,13 +18,25 @@ export class AuthService {
   }
 
   signin(username: string, password: string): Observable<any> {
-    console.log("username:"+username+" - pass:"+password);
+    //console.log("username:"+username+" - pass:"+password);
 
     //agregar archivo properties con las URLs
     let headers = new Headers({ 'Content-Type': 'application/json' });
     let options = new RequestOptions({ headers: headers });
     let body = {username: username, password: password};
     return this.http.post(this.EP[0].tokenAuth, body, options)
+                    .map(this.extractData)
+                    .catch(this.handleErrorObservable);
+  }
+
+  getRefreshToken(actualToken: string): Observable<any> {
+    //agregar archivo properties con las URLs
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+
+    let body = JSON.stringify({ 'token': actualToken});
+
+    return this.http.post(this.EP[0].tokenRefresh, body, options)
                     .map(this.extractData)
                     .catch(this.handleErrorObservable);
   }
