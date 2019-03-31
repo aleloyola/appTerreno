@@ -1,4 +1,4 @@
-#Sat Mar 30 23:12:52 CLST 2019
+#Sun Mar 31 00:07:37 CLST 2019
 base.0=/Users/alexis/Developer/ionic/appTerreno/platforms/android/app/build/intermediates/transforms/dex/release/0
 path.0=classes.dex
 renamed.0=classes.dex

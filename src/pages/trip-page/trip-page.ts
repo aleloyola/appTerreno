@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, AlertController } from 'ionic-angular';
 import { tripService } from "../../services/trip";
 import { UtilsService } from "../../services/utils";
 import { LaunchNavigator, LaunchNavigatorOptions } from '@ionic-native/launch-navigator';
@@ -18,7 +18,8 @@ export class TripPage implements OnInit {
               public navParams: NavParams,
               private utilsService: UtilsService,
                private launchNavigator: LaunchNavigator,
-              public tripSrv: tripService) {
+              public tripSrv: tripService,
+              private alertCtrl: AlertController) {
   }
 
   ngOnInit() {
@@ -28,20 +29,25 @@ export class TripPage implements OnInit {
   }
 
   setTripDriverInTransit() {
-    this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url), this.token);
+    this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url), this.token)
+                  .catch((error) => { this.handleErrorObservable(error) });
+
     this.navCtrl.popToRoot();
   }
   setTripDriverWaiting(){
-    this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url), this.token);
+    this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url), this.token)
+                  .catch((error) => { this.handleErrorObservable(error) });
     this.navCtrl.popToRoot();
   }
   setTripInProgress() {
-    this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url), this.token);
+    this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url), this.token)
+                  .catch((error) => { this.handleErrorObservable(error) });
     this.navCtrl.popToRoot();
   }
 
   setTripFinished() {
-    this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url), this.token);
+    this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url), this.token)
+                  .catch((error) => { this.handleErrorObservable(error) });
     this.navCtrl.popToRoot();
   }
 
@@ -56,5 +62,27 @@ export class TripPage implements OnInit {
              error => alert('Error launching navigator: ' + error)
      );
 
+  }
+  private handleErrorObservable (error: Response | any) {
+    console.log("In error handle with error:"+error.status);
+
+      const alert = this.alertCtrl.create({
+          title: 'Error al actualizar, vuelva a intentar!',
+          message: error.message,
+          buttons: ['Ok']
+                });
+      alert.present();
+    /*
+    else if (error.status === 400) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 409) {
+        return Observable.throw(new Error(error.status));
+    }
+    else if (error.status === 406) {
+        return Observable.throw(new Error(error.status));
+    }
+    console.error(error.message || error);
+    return error;*/
   }
 }

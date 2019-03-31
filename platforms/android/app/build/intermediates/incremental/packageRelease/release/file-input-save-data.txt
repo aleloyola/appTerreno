@@ -1,5 +1,5 @@
 #Internal package file, do not edit.
-#Sat Mar 30 23:12:52 CLST 2019
+#Sun Mar 31 00:07:37 CLST 2019
 5.base=/Users/alexis/Developer/ionic/appTerreno/platforms/android/app/build/intermediates/assets/release
 42.base=/Users/alexis/Developer/ionic/appTerreno/platforms/android/app/build/intermediates/assets/release
 22.path=www/assets/fonts/roboto-regular.woff2

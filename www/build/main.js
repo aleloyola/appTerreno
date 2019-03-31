@@ -744,7 +744,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusToDriverInTransit + tripId + '/', JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusToDriverInTransit + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -758,7 +758,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId + '/', JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusWaiting + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -772,7 +772,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusInProgress + tripId + '/', JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusInProgress + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -786,7 +786,7 @@ var tripService = (function () {
         headers.append("Authorization", "Bearer " + token);
         var data = { pk: tripId };
         return new Promise(function (resolve, reject) {
-            _this.http.patch(_this.EP[0].tripStatusToFinished + tripId + '/', JSON.stringify(data), { headers: headers })
+            _this.http.patch(_this.EP[0].tripStatusToFinished + tripId, JSON.stringify(data), { headers: headers })
                 .subscribe(function (res) {
                 resolve(res);
             }, function (err) {
@@ -957,12 +957,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 var TripPage = (function () {
-    function TripPage(navCtrl, navParams, utilsService, launchNavigator, tripSrv) {
+    function TripPage(navCtrl, navParams, utilsService, launchNavigator, tripSrv, alertCtrl) {
         this.navCtrl = navCtrl;
         this.navParams = navParams;
         this.utilsService = utilsService;
         this.launchNavigator = launchNavigator;
         this.tripSrv = tripSrv;
+        this.alertCtrl = alertCtrl;
     }
     TripPage.prototype.ngOnInit = function () {
         this.trip = this.navParams.get('trip');
@@ -970,25 +971,54 @@ var TripPage = (function () {
         this.token = this.navParams.get('token');
     };
     TripPage.prototype.setTripDriverInTransit = function () {
-        this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url), this.token);
+        var _this = this;
+        this.tripSrv.setTripDriverInTransit(this.utilsService.getIdFromURL(this.trip.url), this.token)
+            .catch(function (error) { _this.handleErrorObservable(error); });
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripDriverWaiting = function () {
-        this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url), this.token);
+        var _this = this;
+        this.tripSrv.setTripDriverWaiting(this.utilsService.getIdFromURL(this.trip.url), this.token)
+            .catch(function (error) { _this.handleErrorObservable(error); });
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripInProgress = function () {
-        this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url), this.token);
+        var _this = this;
+        this.tripSrv.setTripInProgress(this.utilsService.getIdFromURL(this.trip.url), this.token)
+            .catch(function (error) { _this.handleErrorObservable(error); });
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.setTripFinished = function () {
-        this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url), this.token);
+        var _this = this;
+        this.tripSrv.setTripFinished(this.utilsService.getIdFromURL(this.trip.url), this.token)
+            .catch(function (error) { _this.handleErrorObservable(error); });
         this.navCtrl.popToRoot();
     };
     TripPage.prototype.lauchNav = function (address) {
         var options = {};
         this.launchNavigator.navigate(address, options)
             .then(function (success) { return alert('Launched navigator'); }, function (error) { return alert('Error launching navigator: ' + error); });
+    };
+    TripPage.prototype.handleErrorObservable = function (error) {
+        console.log("In error handle with error:" + error.status);
+        var alert = this.alertCtrl.create({
+            title: 'Error al actualizar, vuelva a intentar!',
+            message: error.message,
+            buttons: ['Ok']
+        });
+        alert.present();
+        /*
+        else if (error.status === 400) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 409) {
+            return Observable.throw(new Error(error.status));
+        }
+        else if (error.status === 406) {
+            return Observable.throw(new Error(error.status));
+        }
+        console.error(error.message || error);
+        return error;*/
     };
     TripPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
@@ -998,7 +1028,8 @@ var TripPage = (function () {
             __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["h" /* NavParams */],
             __WEBPACK_IMPORTED_MODULE_3__services_utils__["a" /* UtilsService */],
             __WEBPACK_IMPORTED_MODULE_4__ionic_native_launch_navigator__["a" /* LaunchNavigator */],
-            __WEBPACK_IMPORTED_MODULE_2__services_trip__["a" /* tripService */]])
+            __WEBPACK_IMPORTED_MODULE_2__services_trip__["a" /* tripService */],
+            __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */]])
     ], TripPage);
     return TripPage;
 }());
