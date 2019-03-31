@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.mardukITS.oceanictp" version="1.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.ionicframework.ionicrestcall637820" version="1.0.2" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>OceanicTP</name>
     <description>Una app para utilizar en el trabajo en terreno de Transporte Privado Oceanic </description>
     <author email="alexis.loyola@gmail.com" href="http://www.marduk-its.com/">Marduk IT Services</author>
