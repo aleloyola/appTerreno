@@ -18,7 +18,7 @@ export class HomePage {
               public tripSrv: tripService,
               private storage: Storage,
               private authService: AuthService,
-              private alertCtrl: AlertController,) {
+              private alertCtrl: AlertController) {
 
   }
 
@@ -58,10 +58,12 @@ export class HomePage {
   private actualizarToken(){
     if(this.estaPorVencerToken()){
       //se agrega rutina para actualizar token 20 dias despues del ultimo almacenado.
-      this.authService.getRefreshToken(this.token).subscribe( dataAuth => {
+      this.authService.getRefreshToken(this.token)
+                        .subscribe( dataAuth => {
                             console.log(dataAuth.token);
                             this.storage.set('token', dataAuth.token);
-                          });
+                          },
+                          (error) => { this.handleErrorObservable(error) });
     }
   }
 

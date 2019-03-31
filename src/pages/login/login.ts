@@ -37,12 +37,12 @@ export class Login {
                                 //loading.dismiss();
                                 this.authService.getActiveUser(form.value.username, dataAuth.token)
                                       .subscribe( data => {
-                                                              console.log(data);
+                                                              //console.log(data);
                                                               //console.log(data[0].url);
                                                               //var transportId = this.utils.getIdFromURL(body[0].url);
                                                               //let len = data[0].url.length;
                                                               //var transportId = data[0].url.substring(len-2, len-1);
-                                                              console.log("TransportID: " + this.utilsService.getIdFromURL(data[0].url));
+                                                              //console.log("TransportID: " + this.utilsService.getIdFromURL(data[0].url));
                                                               this.storage.set('username', form.value.username);
                                                               this.storage.set('transportId', this.utilsService.getIdFromURL(data[0].url));
                                                               loading.dismiss();

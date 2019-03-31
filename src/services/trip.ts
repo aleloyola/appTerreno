@@ -128,7 +128,7 @@ export class tripService {
     else if(error.status === 401) {
       //console.log("Session expired");
       let err: any;
-      err = new Error('Session Expired aweonao');
+      err = new Error('Session Expired');
       err.status = 401;
       return Observable.throw(err);
     }else
