@@ -5,6 +5,7 @@ import 'rxjs/add/operator/map';
 import endpoints from '../data/endpoints';
 import { Endpoint } from '../data/endpoints.interface';
 import { Observable } from "rxjs/Observable";
+import 'rxjs/add/observable/throw';
 /*
   Generated class for the RestapiService provider.
 
@@ -108,6 +109,10 @@ export class tripService {
   }
 
   private handleErrorObservable (error: Response | any) {
+    interface Error{
+      status?: number;
+    }
+
     if (error.status === 500) {
         return Observable.throw(new Error(error.status));
     }
@@ -121,8 +126,11 @@ export class tripService {
         return Observable.throw(new Error(error.status));
     }
     else if(error.status === 401) {
-      console.log("Session expired");
-      return Observable.throw(new Error(error.status));
+      //console.log("Session expired");
+      let err: any;
+      err = new Error('Session Expired aweonao');
+      err.status = 401;
+      return Observable.throw(err);
     }else
     {
       console.error(error.message || error);

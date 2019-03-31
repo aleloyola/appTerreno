@@ -31,8 +31,9 @@ export class Login {
 
     this.authService.signin(form.value.username, form.value.password)
           .subscribe( dataAuth => {
-                                console.log(dataAuth.token);
+                                //console.log(dataAuth.token);
                                 this.storage.set('token', dataAuth.token);
+                                this.storage.set('fechaUltimoToken', new Date().getTime());
                                 //loading.dismiss();
                                 this.authService.getActiveUser(form.value.username, dataAuth.token)
                                       .subscribe( data => {
@@ -62,7 +63,7 @@ export class Login {
                       error => {
                         if(loading) loading.dismiss();
                         const alert = this.alertCtrl.create({
-                            title: 'Usuario no definido!',
+                            title: 'Error en los datos entregados!',
                             message: error.message,
                             buttons: ['Ok']
                                   });
